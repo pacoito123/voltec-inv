@@ -1,0 +1,19 @@
+{
+	"items": [
+		{
+			"id": 1,
+			"name": "Hammer",
+			"tags": [],
+			"image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Buck_Knives_Hammer_%285075278861%29.jpg",
+			"storedIn": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Buck_Knives_Hammer_%285075278861%29.jpg",
+			"borrowed": false,
+			"borrowedBy": null
+		}
+	],
+	"tags": [
+		{
+			"id": 1,
+			"name": "Tool"
+		}
+	]
+}
