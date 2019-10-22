@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "materialize-css": "^1.0.0",
+    "moment": "^2.24.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
+    "react-moment": "^0.9.6",
     "react-redux": "^7.1.1",
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",
@@ -13,12 +15,12 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-	"start": "react-scripts start",
-	"json-server": "json-server --watch db.json --port 5000",
-	"dev": "concurrently \"npm start\" \"npm run json-server\"",
-	"build": "react-scripts build",
-	"test": "react-scripts test",
-	"eject": "react-scripts eject"
+    "start": "react-scripts start",
+    "json-server": "json-server --watch db.json --port 5000",
+    "dev": "concurrently \"npm start\" \"npm run json-server\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
