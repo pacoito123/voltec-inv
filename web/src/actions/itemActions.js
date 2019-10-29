@@ -1,13 +1,5 @@
-import {
-	GET_ITEMS,
-	ADD_ITEM,
-	REMOVE_ITEM,
-	UPDATE_ITEM,
-	SET_LOADING,
-	ITEM_ERROR,
-	SET_CURRENT
-} from './types';
 import Axios from 'axios';
+import { ADD_ITEM, GET_ITEMS, ITEM_ERROR, REMOVE_ITEM, SET_CURRENT, SET_LOADING, UPDATE_ITEM } from './types';
 
 // Get items from server
 export const getItems = () => async dispatch => {

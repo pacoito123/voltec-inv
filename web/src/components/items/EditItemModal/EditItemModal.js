@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 const EditItemModal = ({ current }) => {
 	return <div id='edit-item' className='modal'>

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import ItemList from '../../items/ItemList/ItemList';
 import AddItemModal from '../../items/AddItemModal/AddItemModal';
+import ItemList from '../../items/ItemList/ItemList';
 import StoredInModal from '../../items/StoredInModal/StoredInModal';
 import AddBtn from '../../layout/AddBtn/AddBtn';
 import SearchBar from '../../layout/SearchBar/SearchBar';

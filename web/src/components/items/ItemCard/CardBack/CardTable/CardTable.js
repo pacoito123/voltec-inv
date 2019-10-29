@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 import 'moment/locale/es';
+import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 import Moment from 'react-moment';
 
 const CardTable = ({ grabbedBy }) => {

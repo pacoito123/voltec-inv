@@ -2,7 +2,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { setCurrent, removeItem } from '../../../../actions/itemActions';
+import { removeItem, setCurrent } from '../../../../actions/itemActions';
 import CardTags from '../CardTags/CardTags';
 import CardTable from './CardTable/CardTable';
 
