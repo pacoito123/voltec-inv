@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { getItems } from '../../../actions/itemActions';
 import Preloader from '../../layout/Preloader/Preloader';
 import ItemCard from '../ItemCard/ItemCard';
-import { getItems } from '../../../actions/itemActions';
 
 const ItemList = ({ item: { items, loading }, getItems }) => {
 	useEffect(() => {

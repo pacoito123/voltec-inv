@@ -1,13 +1,19 @@
-import React, { Fragment } from 'react';
+import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
-import CardTags from '../CardTags/CardTags';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { setCurrent } from '../../../../actions/itemActions';
-import Moment from 'react-moment';
-import 'moment/locale/es';
+import { setCurrent, removeItem } from '../../../../actions/itemActions';
+import CardTags from '../CardTags/CardTags';
+import CardTable from './CardTable/CardTable';
 
-const CardBack = ({ item, setCurrent }) => {
+const CardBack = ({ item, setCurrent, removeItem }) => {
 	const { name, tags, amountGrabbed, grabbedBy } = item;
+
+	const onDelete = () => {
+		removeItem(item.id);
+		M.toast({ html: 'Objeto eliminado.' });
+	};
+
 	return (
 		<Fragment>
 			<span className='card-title grey-text text-darken-4'>
@@ -16,55 +22,46 @@ const CardBack = ({ item, setCurrent }) => {
 				<CardTags tags={tags} hide='hide-on-large-only' />
 				<hr />
 			</span>
-			{amountGrabbed > 0 && (
-				<Fragment>
-					<table className='responsive-table centered light-blue accent-1'>
-						<thead>
-							<tr>
-								<th>Usuario</th>
-								<th>Cantidad</th>
-								<th>Fecha</th>
-							</tr>
-						</thead>
-						<tbody>
-							{grabbedBy.map(grab => (
-								<tr key={grab}>
-									<td>{grab.user}</td>
-									<td>{grab.amount}</td>
-									<td>
-										<Moment
-											locale='es'
-											format='DD/MM/YYYY, h:mm:ss A'
-										>
-											{grab.date}
-										</Moment>
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-					<hr />
-				</Fragment>
-			)}
-			<div className='center'>
-				<a
-					className='waves-effect waves-light btn-small modal-trigger'
-					href='#stored-in'
-					onClick={() => setCurrent(item)}
-				>
-					¿Dónde se guarda?
-				</a>
-			</div>
+			{amountGrabbed > 0 && <CardTable grabbedBy={grabbedBy} />}
+			<a
+				className='waves-effect waves-light btn blue darken-2 modal-trigger col s12'
+				href='#stored-in'
+				onClick={() => setCurrent(item)}
+			>
+				¿Dónde se guarda?
+				<i className='material-icons right'>archive</i>
+			</a>
+			<br />
+			<br />
+			<a
+				className='waves-effect waves-light btn green darken-2 modal-trigger col s12'
+				href='#edit-item'
+				onClick={null}
+			>
+				Editar
+				<i className='material-icons right'>edit</i>
+			</a>
+			<br />
+			<br />
+			<a
+				className='waves-effect waves-light btn red darken-4 col s12'
+				href='#!'
+				onClick={onDelete}
+			>
+				Eliminar
+				<i className='material-icons right'>delete_forever</i>
+			</a>
 		</Fragment>
 	);
 };
 
 CardBack.propTypes = {
 	item: PropTypes.object.isRequired,
-	setCurrent: PropTypes.func.isRequired
+	setCurrent: PropTypes.func.isRequired,
+	removeItem: PropTypes.func.isRequired
 };
 
 export default connect(
 	null,
-	{ setCurrent }
+	{ setCurrent, removeItem }
 )(CardBack);

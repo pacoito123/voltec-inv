@@ -10,7 +10,8 @@ import store from './store';
 const App = () => {
 	useEffect(() => {
 		M.AutoInit();
-	});
+		// eslint-disable-next-line
+	}, []);
 	return (
 		<Router>
 			<Provider store={store}>

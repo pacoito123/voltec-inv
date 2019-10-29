@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import GrabBtn from './GrabBtn/GrabBtn';
 import CardBack from './CardBack/CardBack';
 import CardTop from './CardTop/CardTop';
-import PropTypes from 'prop-types';
+import GrabBtn from './GrabBtn/GrabBtn';
 
 const ItemCard = ({ item }) => {
 	return (

@@ -23,6 +23,26 @@ export default (state = initialState, action) => {
 				items: action.payload,
 				loading: false
 			};
+		case ADD_ITEM:
+			return {
+				...state,
+				items: [...state.items, action.payload],
+				loading: false
+			};
+		case REMOVE_ITEM:
+			return {
+				...state,
+				items: state.items.filter(item => item.id !== action.payload),
+				loading: false
+			};
+		case UPDATE_ITEM:
+			return {
+				...state,
+				items: state.items.map(item =>
+					item.id === action.payload.id ? action.payload : item
+				),
+				loading: false
+			};
 		case SET_LOADING:
 			return {
 				...state,
@@ -32,6 +52,13 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				current: action.payload
+			};
+		case ITEM_ERROR:
+			console.error(action.payload);
+			return {
+				...state,
+				error: action.payload,
+				loading: false
 			};
 		default:
 			return state;

@@ -1,18 +1,15 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Logo from '../../../assets/Logo.png';
 import ItemList from '../../items/ItemList/ItemList';
+import AddItemModal from '../../items/AddItemModal/AddItemModal';
+import StoredInModal from '../../items/StoredInModal/StoredInModal';
+import AddBtn from '../../layout/AddBtn/AddBtn';
 import SearchBar from '../../layout/SearchBar/SearchBar';
+import VoltecLogo from '../../layout/VoltecLogo/VoltecLogo';
 
-const Home = ({ current }) => {
+const Home = () => {
 	return (
 		<Fragment>
-			<h1 className='center'>
-				<a href='http://www.voltec6647.com/'>
-					<img src={Logo} alt='' style={{ width: '25%' }} />
-				</a>
-			</h1>
+			<VoltecLogo width='30%' />
 			<div className='row'>
 				<div className='col s12'>
 					<SearchBar />
@@ -20,37 +17,11 @@ const Home = ({ current }) => {
 					<ItemList />
 				</div>
 			</div>
-			<div className='fixed-action-btn'>
-				<a className='btn-floating btn-large red' href='#!'>
-					<i className='large material-icons'>add</i>
-				</a>
-			</div>
-			<div id='stored-in' className='modal'>
-				<div className='modal-content center'>
-					{current && (
-						<Fragment>
-							<h4>{current.name}</h4>
-							<br />
-							<img
-								src={current.storedIn}
-								alt=''
-								className=''
-								width='500px'
-							/>
-						</Fragment>
-					)}
-				</div>
-			</div>
+			<AddBtn />
+			<AddItemModal />
+			<StoredInModal />
 		</Fragment>
 	);
 };
 
-Home.propTypes = {
-	current: PropTypes.object
-};
-
-const mapStateToProps = state => ({
-	current: state.item.current
-});
-
-export default connect(mapStateToProps)(Home);
+export default Home;

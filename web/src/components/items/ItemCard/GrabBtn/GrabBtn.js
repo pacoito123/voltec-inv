@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 
 const GrabBtn = ({ item: { amount, amountGrabbed } }) => {
 	return (
 		<Fragment>
 			{amount - amountGrabbed > 0 ? (
 				<a
-					href='#!'
-					className='waves-effect waves-light btn-small white-text light-green darken-3 hoverable'
+					href='#grab-item'
+					className='waves-effect waves-light btn-small white-text light-green darken-3 hoverable modal-trigger'
 				>
 					Agarrar
 				</a>
