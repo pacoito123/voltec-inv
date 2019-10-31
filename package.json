@@ -10,18 +10,21 @@
     "webInstall": "npm install --prefix web",
     "dev": "concurrently \"npm run server\" \"npm run web\""
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pacoito123/voltec-inv.git"
+  },
   "author": "pacoito123",
-  "license": "ISC",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/pacoito123/voltec-inv#readme",
   "dependencies": {
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
-    "config": "^3.2.3",
+    "config": "^3.2.4",
     "express": "^4.17.1",
     "express-validator": "^6.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.5",
-    "react-router-dom": "^5.1.2",
-    "react-transition-group": "^4.3.0"
+    "mongoose": "^5.7.7"
   },
   "devDependencies": {
     "concurrently": "^5.0.0",

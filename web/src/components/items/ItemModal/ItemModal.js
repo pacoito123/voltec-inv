@@ -7,12 +7,6 @@ import { addItem, updateItem } from '../../../actions/itemActions';
 import Spinner from '../../layout/Spinner/Spinner';
 import TagSelectOptions from '../../tags/TagSelectOptions/TagSelectOptions';
 
-let imgurAccessToken;
-
-if (process.env.NODE_ENV !== 'production')
-	imgurAccessToken = process.env.IMGUR_ACESS_TOKEN;
-else imgurAccessToken = process.env.DEV_IMGUR_ACCESS_TOKEN;
-
 const ItemModal = ({ current, addItem, updateItem }) => {
 	useEffect(() => {
 		if (current !== null) setItem(current);
@@ -77,7 +71,11 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 	const uploadImage = async (img, storedInCheck) => {
 		const config = {
 			headers: {
-				Authorization: `Bearer ${imgurAccessToken}`
+				Authorization: `Bearer ${
+					process.env.NODE_ENV !== 'production'
+						? process.env.IMGUR_ACCESS_TOKEN
+						: process.env.DEV_IMGUR_ACCESS_TOKEN
+				}`
 			}
 		};
 		try {
@@ -119,7 +117,8 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 			<div className='modal-content'>
 				<div className='container'>
 					<div className='row'>
-						<div className='input-field'>
+						<div className='input-field col s10'>
+							<i className='material-icons prefix'>build</i>
 							<input
 								type='text'
 								name='name'
@@ -131,6 +130,29 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 									Nombre
 								</label>
 							)}
+						</div>
+						<div className='input-field col s2'>
+							<i className='material-icons prefix'>
+								{amount > 0
+									? amount < 9
+										? `filter_${amount}`
+										: 'filter_9_plus'
+									: 'filter'}
+							</i>
+							<label htmlFor='amount'>Cantidad</label>
+							<input
+								type='number'
+								name='amount'
+								value={amount}
+								onChange={e =>
+									e.target.value >= amountGrabbed &&
+									e.target.value > 0 &&
+									setItem({
+										...item,
+										amount: Number(e.target.value)
+									})
+								}
+							/>
 						</div>
 					</div>
 					<label>Etiquetas</label>
@@ -151,23 +173,6 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 							}}
 							checked={tags}
 						/>
-					</div>
-					<div className='row'>
-						<div className='input-field'>
-							<label htmlFor='amount'>Cantidad</label>
-							<input
-								type='number'
-								name='amount'
-								value={amount}
-								onChange={e =>
-									e.target.value >= amountGrabbed &&
-									setItem({
-										...item,
-										amount: Number(e.target.value)
-									})
-								}
-							/>
-						</div>
 					</div>
 					<div className='row'>
 						<div className='input-field'>
