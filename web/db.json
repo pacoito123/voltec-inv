@@ -1,45 +1,4 @@
 {
-  "items": [
-    {
-      "id": 1,
-      "name": "Talon SRX",
-      "tags": [
-        "Eléctrica"
-      ],
-      "amount": 2,
-      "image": "https://i.imgur.com/SFJLZgI.png",
-      "storedIn": "https://i.imgur.com/5gXrkJR.png",
-      "grabbedBy": [
-        {
-          "user": "Robot 1",
-          "amount": 2,
-          "date": "2019-10-31T01:55:09.173Z"
-        }
-      ],
-      "amountGrabbed": 2,
-      "timesGrabbed": 1
-    }
-  ],
-  "tags": [
-    {
-      "tag": "Herramienta",
-      "id": 1
-    },
-    {
-      "id": 2,
-      "tag": "Eléctrica"
-    },
-    {
-      "tag": "Mecánica",
-      "id": 3
-    },
-    {
-      "tag": "Mantener lejos de Tony",
-      "id": 4
-    },
-    {
-      "tag": "Test",
-      "id": 5
-    }
-  ]
+  "items": [],
+  "tags": []
 }

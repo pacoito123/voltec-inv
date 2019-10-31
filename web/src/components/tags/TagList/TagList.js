@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getTags } from '../../../actions/tagActions';
 import TagItem from '../TagItem/TagItem';
+import Preloader from '../../layout/Preloader/Preloader';
 
 const TagList = ({ tag: { tags, loading }, getTags }) => {
 	useEffect(() => {
@@ -10,7 +11,19 @@ const TagList = ({ tag: { tags, loading }, getTags }) => {
 		// eslint-disable-next-line
 	}, []);
 
-	return !loading && tags !== null && tags.map(t => <TagItem tag={t} key={t.id}/>);
+	return !loading && tags != null ? (
+		tags.length > 0 ? (
+			tags.map(t => <TagItem tag={t} key={t.id} />)
+		) : (
+			<div className='light-blue lighten-5 center'>
+				<span className='flow-text'>
+					No se encontraron etiquetas...
+				</span>
+			</div>
+		)
+	) : (
+		<Preloader />
+	);
 };
 
 TagList.propTypes = {

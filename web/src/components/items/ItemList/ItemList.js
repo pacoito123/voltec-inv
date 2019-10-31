@@ -17,7 +17,7 @@ const ItemList = ({ item: { items, loading }, getItems }) => {
 		<div className='row'>
 			{!loading && items.length === 0 ? (
 				<p className='center white-text'>
-					No hay objetos en la base de datos...
+					No se encontraron objetos...
 				</p>
 			) : (
 				items.map(i => <ItemCard item={i} key={i.id} />)
