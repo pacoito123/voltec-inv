@@ -22,16 +22,24 @@
   ],
   "tags": [
     {
-      "id": 1,
-      "tag": "Herramienta"
+      "tag": "Herramienta",
+      "id": 1
     },
     {
       "id": 2,
       "tag": "Eléctrica"
     },
     {
-      "id": 3,
-      "tag": "Mecánica"
+      "tag": "Mecánica",
+      "id": 3
+    },
+    {
+      "tag": "Mantener lejos de Tony",
+      "id": 4
+    },
+    {
+      "tag": "Test",
+      "id": 5
     }
   ]
 }

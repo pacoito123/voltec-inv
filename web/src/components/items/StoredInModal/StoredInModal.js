@@ -1,15 +1,21 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 const StoredInModal = ({ current }) => (
-	<div id='stored-in' className='modal'>
+	<div id='stored-in' className='modal light-blue lighten-4'>
 		{current && (
-			<div className='modal-content center'>
-				<h4>{current.name}</h4>
-				<br />
-				<img src={current.storedIn} alt='' className='' width='500px' />
-			</div>
+			<Fragment>
+				<div
+					className='modal-header cyan darken-1 center'
+					style={{ padding: '20px 0px 10px 0px' }}
+				>
+					<h4>{current.name}</h4>
+				</div>
+				<div className='modal-content center'>
+					<img src={current.storedIn} alt='' className='' />
+				</div>
+			</Fragment>
 		)}
 	</div>
 );

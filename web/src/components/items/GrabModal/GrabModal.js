@@ -1,3 +1,4 @@
+import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -39,28 +40,32 @@ const GrabModal = ({ current, updateItem }) => {
 	const onSubmit = e => {
 		e.preventDefault();
 
-		const newItem = {
-			id,
-			name,
-			tags,
-			amount,
-			image,
-			storedIn,
-			grabbedBy: [
-				...grabbedBy,
-				{
-					user: grabName,
-					amount: grabAmount,
-					date: new Date()
-				}
-			],
-			amountGrabbed: amountGrabbed + grabAmount,
-			timesGrabbed: timesGrabbed + 1
-		};
+		if (grabName !== '') {
+			const newItem = {
+				id,
+				name,
+				tags,
+				amount,
+				image,
+				storedIn,
+				grabbedBy: [
+					...grabbedBy,
+					{
+						user: grabName,
+						amount: grabAmount,
+						date: new Date()
+					}
+				],
+				amountGrabbed: amountGrabbed + grabAmount,
+				timesGrabbed: timesGrabbed + 1
+			};
 
-		console.log(newItem);
-		updateItem(newItem);
-		clearFields();
+			console.log(newItem);
+			updateItem(newItem);
+			clearFields();
+		} else {
+			M.toast({ html: 'Por favor introduzca un nombre.' });
+		}
 	};
 
 	const clearFields = () => {
@@ -83,7 +88,7 @@ const GrabModal = ({ current, updateItem }) => {
 		item !== null && (
 			<div
 				id='grab-item'
-				className='modal light-blue lighten-5'
+				className='modal light-blue lighten-4'
 				style={{ maxHeight: '100%', overflow: 'hidden' }}
 			>
 				<div
@@ -92,47 +97,39 @@ const GrabModal = ({ current, updateItem }) => {
 				>
 					<h4>Agarrar {name}</h4>
 				</div>
-				<div className='container'>
-					<div className='modal-content'>
+				<div className='modal-content'>
+					<div className='container'>
 						<div className='row'>
-							<div className='col s8'>
-								<div className='input-field'>
-									<input
-										type='text'
-										name='name'
-										value={grabName}
-										onChange={e =>
-											setGrabName(e.target.value)
-										}
-										required
-									/>
-									<label htmlFor='name' className='active'>
-										¿Quién lo va a agarrar?
-									</label>
-								</div>
+							<div className='input-field'>
+								<input
+									type='text'
+									name='name'
+									value={grabName}
+									onChange={e => setGrabName(e.target.value)}
+									required
+								/>
+								<label htmlFor='name' className='active'>
+									¿Quién lo va a agarrar?
+								</label>
 							</div>
 						</div>
 						<div className='row'>
-							<div className='col s8'>
-								<div className='input-field'>
-									<label htmlFor='amount'>
-										Cantidad por agarrar
-									</label>
-									<input
-										type='number'
-										name='amount'
-										value={grabAmount}
-										onChange={e =>
-											e.target.value <=
-												amount - amountGrabbed &&
-											e.target.value > 0 &&
-											setGrabAmount(
-												Number(e.target.value)
-											)
-										}
-										required
-									/>
-								</div>
+							<div className='input-field'>
+								<label htmlFor='amount'>
+									Cantidad por agarrar
+								</label>
+								<input
+									type='number'
+									name='amount'
+									value={grabAmount}
+									onChange={e =>
+										e.target.value <=
+											amount - amountGrabbed &&
+										e.target.value > 0 &&
+										setGrabAmount(Number(e.target.value))
+									}
+									required
+								/>
 							</div>
 						</div>
 					</div>

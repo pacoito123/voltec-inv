@@ -20,10 +20,10 @@ const AddBtn = ({ clearCurrent }) => {
 			<ul>
 				<li>
 					<a
-						href='#add-tag'
+						href='#tag-modal'
 						className='btn-floating green modal-trigger'
 					>
-						<i className='material-icons'>backspace</i>
+						<i className='material-icons'>label</i>
 					</a>
 				</li>
 			</ul>

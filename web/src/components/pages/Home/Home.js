@@ -6,6 +6,7 @@ import StoredInModal from '../../items/StoredInModal/StoredInModal';
 import AddBtn from '../../layout/AddBtn/AddBtn';
 import SearchBar from '../../layout/SearchBar/SearchBar';
 import VoltecLogo from '../../layout/VoltecLogo/VoltecLogo';
+import TagModal from '../../tags/TagModal/TagModal';
 
 const Home = () => {
 	return (
@@ -22,6 +23,7 @@ const Home = () => {
 			<ItemModal />
 			<StoredInModal />
 			<GrabModal />
+			<TagModal />
 		</Fragment>
 	);
 };

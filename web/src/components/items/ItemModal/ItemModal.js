@@ -101,32 +101,30 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 	return (
 		<div
 			id='item-modal'
-			className='modal modal-fixed-footer light-blue lighten-5'
-			style={{ maxHeight: '100%', overflow: 'hidden' }}
+			className='modal modal-fixed-footer light-blue lighten-4'
+			style={{ overflow: 'hidden' }}
 		>
 			<div
 				className='modal-header cyan darken-1 center'
-				style={{ padding: '15px 0px 10px 0px' }}
+				style={{ padding: '20px 0px 10px 0px' }}
 			>
 				<h4>Agregar/Editar {name}</h4>
 			</div>
-			<div className='container'>
-				<div className='modal-content'>
+			<div className='modal-content'>
+				<div className='container'>
 					<div className='row'>
-						<div className='col s6'>
-							<div className='input-field'>
-								<input
-									type='text'
-									name='name'
-									value={name}
-									onChange={onChange}
-								/>
-								{name === '' && (
-									<label htmlFor='name' className='active'>
-										Nombre
-									</label>
-								)}
-							</div>
+						<div className='input-field'>
+							<input
+								type='text'
+								name='name'
+								value={name}
+								onChange={onChange}
+							/>
+							{name === '' && (
+								<label htmlFor='name' className='active'>
+									Nombre
+								</label>
+							)}
 						</div>
 					</div>
 					<label>Etiquetas</label>
@@ -149,22 +147,20 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 						/>
 					</div>
 					<div className='row'>
-						<div className='col s6'>
-							<div className='input-field'>
-								<label htmlFor='amount'>Cantidad</label>
-								<input
-									type='number'
-									name='amount'
-									value={amount}
-									onChange={e =>
-										e.target.value >= amountGrabbed &&
-										setItem({
-											...item,
-											amount: Number(e.target.value)
-										})
-									}
-								/>
-							</div>
+						<div className='input-field'>
+							<label htmlFor='amount'>Cantidad</label>
+							<input
+								type='number'
+								name='amount'
+								value={amount}
+								onChange={e =>
+									e.target.value >= amountGrabbed &&
+									setItem({
+										...item,
+										amount: Number(e.target.value)
+									})
+								}
+							/>
 						</div>
 					</div>
 					<div className='row'>

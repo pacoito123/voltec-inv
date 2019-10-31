@@ -6,7 +6,7 @@ import Moment from 'react-moment';
 const CardTable = ({ grabbedBy }) => {
 	return (
 		<Fragment>
-			<table className='responsive-table centered light-blue accent-1'>
+			<table className='responsive-table centered light-blue lighten-4'>
 				<thead>
 					<tr>
 						<th>Usuario</th>

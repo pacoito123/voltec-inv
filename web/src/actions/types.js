@@ -12,6 +12,7 @@ export const CLEAR_FILTER = 'CLEAR_FILTER';
 // Tag types
 export const GET_TAGS = 'GET_TAGS';
 export const ADD_TAG = 'ADD_TAG';
+export const UPDATE_TAG = 'UPDATE_TAG';
 export const REMOVE_TAG = 'REMOVE_TAG';
 export const TAG_ERROR = 'TAG_ERROR';
 

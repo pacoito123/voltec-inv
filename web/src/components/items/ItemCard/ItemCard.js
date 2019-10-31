@@ -14,7 +14,7 @@ const ItemCard = ({ item }) => {
 				<div className='card-action'>
 					<GrabBtn item={item} />
 				</div>
-				<div className='card-reveal light-blue accent-2'>
+				<div className='card-reveal light-blue lighten-3'>
 					<CardBack item={item} />
 				</div>
 			</div>

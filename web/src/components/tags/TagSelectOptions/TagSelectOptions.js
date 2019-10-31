@@ -1,19 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { getTags } from '../../../actions/tagActions';
 
-const TagSelectOptions = ({
-	getTags,
-	tag: { tags, loading },
-	onCheck,
-	checked
-}) => {
-	useEffect(() => {
-		getTags();
-		// eslint-disable-next-line
-	}, []);
-
+const TagSelectOptions = ({ tag: { tags, loading }, onCheck, checked }) => {
 	return (
 		!loading &&
 		tags != null &&
@@ -25,7 +14,11 @@ const TagSelectOptions = ({
 						className='filled-in'
 						name={t.tag}
 						onChange={onCheck}
-						checked={checked !== null && checked !== undefined && checked.includes(t.tag)}
+						checked={
+							checked !== null &&
+							checked !== undefined &&
+							checked.includes(t.tag)
+						}
 						id='tags'
 					/>
 					<span className='flow-text'>{t.tag}</span>
@@ -36,8 +29,7 @@ const TagSelectOptions = ({
 };
 
 TagSelectOptions.propTypes = {
-	tags: PropTypes.object,
-	getTags: PropTypes.func.isRequired,
+	tag: PropTypes.object,
 	onCheck: PropTypes.func.isRequired
 };
 
@@ -45,7 +37,4 @@ const mapStateToProps = state => ({
 	tag: state.tag
 });
 
-export default connect(
-	mapStateToProps,
-	{ getTags }
-)(TagSelectOptions);
+export default connect(mapStateToProps)(TagSelectOptions);

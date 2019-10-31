@@ -1,10 +1,4 @@
-import {
-	GET_TAGS,
-	ADD_TAG,
-	REMOVE_TAG,
-	TAG_ERROR,
-	SET_LOADING
-} from '../actions/types';
+import { ADD_TAG, GET_TAGS, REMOVE_TAG, SET_LOADING, TAG_ERROR, UPDATE_TAG } from '../actions/types';
 
 const initialState = {
 	tags: null,
@@ -19,6 +13,26 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				tags: action.payload,
+				loading: false
+			};
+		case ADD_TAG:
+			return {
+				...state,
+				tags: [...state.tags, action.payload],
+				loading: false
+			};
+		case UPDATE_TAG:
+			return {
+				...state,
+				tags: state.tags.map(tag =>
+					tag.id === action.payload.id ? action.payload : tag
+				),
+				loading: false
+			};
+		case REMOVE_TAG:
+			return {
+				...state,
+				tags: state.tags.filter(tag => tag.id !== action.payload),
 				loading: false
 			};
 		case SET_LOADING:
