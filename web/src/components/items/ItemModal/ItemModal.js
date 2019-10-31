@@ -7,6 +7,12 @@ import { addItem, updateItem } from '../../../actions/itemActions';
 import Spinner from '../../layout/Spinner/Spinner';
 import TagSelectOptions from '../../tags/TagSelectOptions/TagSelectOptions';
 
+let imgurAccessToken;
+
+if (process.env.NODE_ENV !== 'production')
+	imgurAccessToken = process.env.IMGUR_ACESS_TOKEN;
+else imgurAccessToken = process.env.DEV_IMGUR_ACCESS_TOKEN;
+
 const ItemModal = ({ current, addItem, updateItem }) => {
 	useEffect(() => {
 		if (current !== null) setItem(current);
@@ -71,7 +77,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 	const uploadImage = async (img, storedInCheck) => {
 		const config = {
 			headers: {
-				Authorization: `Bearer ${process.env.REACT_APP_IMGUR_ACCESS_TOKEN}`
+				Authorization: `Bearer ${imgurAccessToken}`
 			}
 		};
 		try {
