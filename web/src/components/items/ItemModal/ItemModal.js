@@ -1,15 +1,26 @@
 import Axios from 'axios';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import React, { Fragment, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import React, { Fragment, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { addItem, updateItem } from '../../../actions/itemActions';
 import Spinner from '../../layout/Spinner/Spinner';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import TagSelectOptions from '../../tags/TagSelectOptions/TagSelectOptions';
 
 const ItemModal = ({ current, addItem, updateItem }) => {
 	useEffect(() => {
 		if (current !== null) setItem(current);
+		else
+			setItem({
+				name: '',
+				tags: [],
+				amount: 1,
+				image: '',
+				storedIn: '',
+				grabbedBy: [],
+				amountGrabbed: 0,
+				timesGrabbed: 0
+			});
 		// eslint-disable-next-line
 	}, [current]);
 
@@ -24,7 +35,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 		timesGrabbed: 0
 	});
 
-	const { name, tags, amount, image, storedIn } = item;
+	const { name, tags, amount, image, storedIn, amountGrabbed } = item;
 
 	const [imgLoading, setImgLoading] = useState(false);
 	const [storedInLoading, setStoredInLoading] = useState(false);
@@ -33,11 +44,15 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 
 	const onSubmit = e => {
 		e.preventDefault();
-		
-		if (current === null) addItem(item);
-		else updateItem(item);
 
-		clearFields();
+		if (name === '' || image === '' || storedIn === '')
+			M.toast({ html: 'Faltó por ingresar algunos parámetros...' });
+		else {
+			if (current === null) addItem(item);
+			else updateItem(item);
+
+			clearFields();
+		}
 	};
 
 	const clearFields = () => {
@@ -86,13 +101,17 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 	return (
 		<div
 			id='item-modal'
-			className='modal modal-fixed-footer'
+			className='modal modal-fixed-footer light-blue lighten-5'
 			style={{ maxHeight: '100%', overflow: 'hidden' }}
 		>
+			<div
+				className='modal-header cyan darken-1 center'
+				style={{ padding: '15px 0px 10px 0px' }}
+			>
+				<h4>Agregar/Editar {name}</h4>
+			</div>
 			<div className='container'>
 				<div className='modal-content'>
-					<h4>Agregar/Editar {name}</h4>
-					<br />
 					<div className='row'>
 						<div className='col s6'>
 							<div className='input-field'>
@@ -138,10 +157,10 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 									name='amount'
 									value={amount}
 									onChange={e =>
-										e.target.value > 0 &&
+										e.target.value >= amountGrabbed &&
 										setItem({
 											...item,
-											amount: e.target.value
+											amount: Number(e.target.value)
 										})
 									}
 								/>
@@ -190,16 +209,19 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 									uploadImage(e.target.files[0], true);
 								}}
 							/>
+							<br />
+							<br />
 						</div>
 					</div>
 				</div>
 			</div>
-			<div className='modal-footer'>
+			<div className='modal-footer cyan darken-1'>
 				<a
 					href='#!'
 					onClick={onSubmit}
 					className='modal-close waves-effect blue waves-light btn'
 				>
+					<i className='material-icons left'>save</i>
 					Guardar
 				</a>
 			</div>

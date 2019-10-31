@@ -1,12 +1,14 @@
 import {
 	ADD_ITEM,
+	CLEAR_CURRENT,
 	GET_ITEMS,
 	ITEM_ERROR,
 	REMOVE_ITEM,
 	SET_CURRENT,
-	CLEAR_CURRENT,
 	SET_LOADING,
-	UPDATE_ITEM
+	UPDATE_ITEM,
+	FILTER_ITEMS,
+	CLEAR_FILTER
 } from '../actions/types';
 
 const initialState = {

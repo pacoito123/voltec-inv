@@ -13,10 +13,12 @@ const GrabBtn = ({ item, setCurrent }) => {
 					className='waves-effect waves-light btn-small white-text light-green darken-3 hoverable modal-trigger'
 					onClick={() => setCurrent(item)}
 				>
+					<i className='material-icons left'>pan_tool</i>
 					Agarrar
 				</a>
 			) : (
 				<a href='#!' className='btn-small white-text' disabled>
+					<i className='material-icons left'>pan_tool</i>
 					Agarrar
 				</a>
 			)}

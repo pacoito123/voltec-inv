@@ -2,8 +2,6 @@ import {
 	GET_TAGS,
 	ADD_TAG,
 	REMOVE_TAG,
-	CURRENT_TAGS,
-	CLEAR_TAGS,
 	TAG_ERROR,
 	SET_LOADING
 } from '../actions/types';

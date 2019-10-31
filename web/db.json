@@ -2,22 +2,21 @@
   "items": [
     {
       "id": 1,
-      "name": "Martillo",
+      "name": "Talon SRX",
       "tags": [
-        "Mecánica",
-        "Herramienta"
+        "Eléctrica"
       ],
-      "amount": "1",
-      "image": "http://www.tts-group.co.uk/on/demandware.static/-/Sites-TTSGroupE-commerceMaster/default/dw3ac32359/images/hi-res/1000464_03_TTCH_02.jpg",
-      "storedIn": "https://www.rockler.com/media/catalog/product/cache/f68f6de77f6cb98656558a3bdc72ca7b/5/6/56117-17-1000_2.jpg",
-      "amountGrabbed": 1,
+      "amount": 2,
+      "image": "https://i.imgur.com/SFJLZgI.png",
+      "storedIn": "https://i.imgur.com/5gXrkJR.png",
       "grabbedBy": [
         {
-          "user": "Francisco Rubio",
-          "amount": 1,
-          "date": "2019-10-18T22:02:54.255Z"
+          "user": "Robot 1",
+          "amount": 2,
+          "date": "2019-10-31T01:55:09.173Z"
         }
       ],
+      "amountGrabbed": 2,
       "timesGrabbed": 1
     }
   ],

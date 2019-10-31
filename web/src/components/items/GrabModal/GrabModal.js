@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { updateItem } from '../../../actions/itemActions';
 
@@ -83,13 +83,17 @@ const GrabModal = ({ current, updateItem }) => {
 		item !== null && (
 			<div
 				id='grab-item'
-				className='modal'
+				className='modal light-blue lighten-5'
 				style={{ maxHeight: '100%', overflow: 'hidden' }}
 			>
+				<div
+					className='modal-header cyan darken-1 center'
+					style={{ padding: '15px 0px 10px 0px' }}
+				>
+					<h4>Agarrar {name}</h4>
+				</div>
 				<div className='container'>
 					<div className='modal-content'>
-						<h4>Agarrar {name}</h4>
-						<br />
 						<div className='row'>
 							<div className='col s8'>
 								<div className='input-field'>
@@ -119,9 +123,12 @@ const GrabModal = ({ current, updateItem }) => {
 										name='amount'
 										value={grabAmount}
 										onChange={e =>
-											e.target.value <= amount &&
+											e.target.value <=
+												amount - amountGrabbed &&
 											e.target.value > 0 &&
-											setGrabAmount(e.target.value)
+											setGrabAmount(
+												Number(e.target.value)
+											)
 										}
 										required
 									/>
@@ -130,12 +137,13 @@ const GrabModal = ({ current, updateItem }) => {
 						</div>
 					</div>
 				</div>
-				<div className='modal-footer'>
+				<div className='modal-footer cyan darken-1'>
 					<a
 						href='#!'
 						onClick={onSubmit}
-						className='modal-close waves-effect blue waves-light btn'
+						className='modal-close waves-effect light-green darken-3 waves-light btn'
 					>
+						<i className='material-icons left'>pan_tool</i>
 						Agarrar
 					</a>
 				</div>

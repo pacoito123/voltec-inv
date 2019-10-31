@@ -1,7 +1,7 @@
-import React from 'react';
-import { clearCurrent } from '../../../actions/itemActions';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
+import { clearCurrent } from '../../../actions/itemActions';
 
 const AddBtn = ({ clearCurrent }) => {
 	const clearAll = () => {
