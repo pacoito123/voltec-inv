@@ -3,7 +3,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getTags } from '../../../actions/tagActions';
 
-const TagSelectOptions = ({ getTags, tag: { tags, loading }, onCheck }) => {
+const TagSelectOptions = ({
+	getTags,
+	tag: { tags, loading },
+	onCheck,
+	checked
+}) => {
 	useEffect(() => {
 		getTags();
 		// eslint-disable-next-line
@@ -20,7 +25,7 @@ const TagSelectOptions = ({ getTags, tag: { tags, loading }, onCheck }) => {
 						className='filled-in'
 						name={t.tag}
 						onChange={onCheck}
-						defaultChecked={tags.includes(t.tag)}
+						checked={checked !== null && checked !== undefined && checked.includes(t.tag)}
 						id='tags'
 					/>
 					<span className='flow-text'>{t.tag}</span>

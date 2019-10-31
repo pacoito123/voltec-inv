@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
-import AddItemModal from '../../items/AddItemModal/AddItemModal';
 import ItemList from '../../items/ItemList/ItemList';
 import StoredInModal from '../../items/StoredInModal/StoredInModal';
 import AddBtn from '../../layout/AddBtn/AddBtn';
 import SearchBar from '../../layout/SearchBar/SearchBar';
 import VoltecLogo from '../../layout/VoltecLogo/VoltecLogo';
+import ItemModal from '../../items/ItemModal/ItemModal';
+import GrabModal from '../../items/GrabModal/GrabModal';
 
 const Home = () => {
 	return (
@@ -18,8 +19,9 @@ const Home = () => {
 				</div>
 			</div>
 			<AddBtn />
-			<AddItemModal />
+			<ItemModal />
 			<StoredInModal />
+			<GrabModal />
 		</Fragment>
 	);
 };

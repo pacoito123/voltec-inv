@@ -1,11 +1,19 @@
 import React from 'react';
+import { clearCurrent } from '../../../actions/itemActions';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const AddBtn = () => {
+const AddBtn = ({ clearCurrent }) => {
+	const clearAll = () => {
+		clearCurrent();
+	};
+
 	return (
 		<div className='fixed-action-btn'>
 			<a
 				className='btn-floating btn-large red modal-trigger'
-				href='#add-item'
+				href='#item-modal'
+				onClick={clearAll}
 			>
 				<i className='large material-icons'>add</i>
 			</a>
@@ -23,4 +31,11 @@ const AddBtn = () => {
 	);
 };
 
-export default AddBtn;
+AddBtn.propTypes = {
+	clearCurrent: PropTypes.func.isRequired
+};
+
+export default connect(
+	null,
+	{ clearCurrent }
+)(AddBtn);

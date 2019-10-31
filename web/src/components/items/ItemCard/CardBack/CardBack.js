@@ -35,8 +35,8 @@ const CardBack = ({ item, setCurrent, removeItem }) => {
 			<br />
 			<a
 				className='waves-effect waves-light btn green darken-2 modal-trigger col s12'
-				href='#edit-item'
-				onClick={null}
+				href='#item-modal'
+				onClick={() => setCurrent(item)}
 			>
 				Editar
 				<i className='material-icons right'>edit</i>

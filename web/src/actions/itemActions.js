@@ -1,5 +1,14 @@
 import Axios from 'axios';
-import { ADD_ITEM, GET_ITEMS, ITEM_ERROR, REMOVE_ITEM, SET_CURRENT, SET_LOADING, UPDATE_ITEM } from './types';
+import {
+	ADD_ITEM,
+	GET_ITEMS,
+	ITEM_ERROR,
+	REMOVE_ITEM,
+	SET_CURRENT,
+	CLEAR_CURRENT,
+	SET_LOADING,
+	UPDATE_ITEM
+} from './types';
 
 // Get items from server
 export const getItems = () => async dispatch => {
@@ -91,6 +100,13 @@ export const setCurrent = item => {
 	return {
 		type: SET_CURRENT,
 		payload: item
+	};
+};
+
+// Clear current item
+export const clearCurrent = () => {
+	return {
+		type: CLEAR_CURRENT
 	};
 };
 

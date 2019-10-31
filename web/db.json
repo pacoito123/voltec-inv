@@ -7,7 +7,7 @@
         "Mecánica",
         "Herramienta"
       ],
-      "amount": 1,
+      "amount": "1",
       "image": "http://www.tts-group.co.uk/on/demandware.static/-/Sites-TTSGroupE-commerceMaster/default/dw3ac32359/images/hi-res/1000464_03_TTCH_02.jpg",
       "storedIn": "https://www.rockler.com/media/catalog/product/cache/f68f6de77f6cb98656558a3bdc72ca7b/5/6/56117-17-1000_2.jpg",
       "amountGrabbed": 1,
@@ -19,19 +19,6 @@
         }
       ],
       "timesGrabbed": 1
-    },
-    {
-      "id": 2,
-      "name": "Talon SRX",
-      "tags": [
-        "Eléctrica"
-      ],
-      "amount": 4,
-      "image": "http://www.ctr-electronics.com/media/catalog/product/cache/1/image/c96a280f94e22e3ee3823dd0a1a87606/t/a/talon_srx_photo2.png",
-      "storedIn": "http://www.ctr-electronics.com/media/catalog/product/cache/1/image/c96a280f94e22e3ee3823dd0a1a87606/t/a/talon_srx_photo2.png",
-      "amountGrabbed": 0,
-      "grabbedBy": [],
-      "timesGrabbed": 0
     }
   ],
   "tags": [

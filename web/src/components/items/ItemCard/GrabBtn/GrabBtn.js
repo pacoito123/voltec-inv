@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { setCurrent } from '../../../../actions/itemActions';
 
-const GrabBtn = ({ item: { amount, amountGrabbed } }) => {
+const GrabBtn = ({ item, setCurrent }) => {
+	const { amount, amountGrabbed } = item;
 	return (
 		<Fragment>
 			{amount - amountGrabbed > 0 ? (
 				<a
 					href='#grab-item'
 					className='waves-effect waves-light btn-small white-text light-green darken-3 hoverable modal-trigger'
+					onClick={() => setCurrent(item)}
 				>
 					Agarrar
 				</a>
@@ -25,7 +29,11 @@ const GrabBtn = ({ item: { amount, amountGrabbed } }) => {
 };
 
 GrabBtn.propTypes = {
-	item: PropTypes.object.isRequired
+	item: PropTypes.object.isRequired,
+	setCurrent: PropTypes.func.isRequired
 };
 
-export default GrabBtn;
+export default connect(
+	null,
+	{ setCurrent }
+)(GrabBtn);

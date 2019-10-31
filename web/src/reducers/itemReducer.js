@@ -1,4 +1,13 @@
-import { ADD_ITEM, GET_ITEMS, ITEM_ERROR, REMOVE_ITEM, SET_CURRENT, SET_LOADING, UPDATE_ITEM } from '../actions/types';
+import {
+	ADD_ITEM,
+	GET_ITEMS,
+	ITEM_ERROR,
+	REMOVE_ITEM,
+	SET_CURRENT,
+	CLEAR_CURRENT,
+	SET_LOADING,
+	UPDATE_ITEM
+} from '../actions/types';
 
 const initialState = {
 	items: null,
@@ -44,6 +53,11 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				current: action.payload
+			};
+		case CLEAR_CURRENT:
+			return {
+				...state,
+				current: null
 			};
 		case ITEM_ERROR:
 			console.error(action.payload);
