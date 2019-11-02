@@ -13,7 +13,7 @@ const StoredInModal = ({ current }) => (
 					<h4>{current.name}</h4>
 				</div>
 				<div className='modal-content center'>
-					<img src={current.storedIn} alt='' className='' />
+					<img src={current.storedIn} alt='' className='' width='500px'/>
 				</div>
 			</Fragment>
 		)}

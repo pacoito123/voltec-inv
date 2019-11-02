@@ -5,7 +5,13 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { addItem, updateItem } from '../../../actions/itemActions';
 import Spinner from '../../layout/Spinner/Spinner';
+import Ticker from '../../layout/Ticker/Ticker';
 import TagSelectOptions from '../../tags/TagSelectOptions/TagSelectOptions';
+
+let imgurAccessToken =
+	process.env.NODE_ENV !== 'production'
+		? process.env.REACT_APP_IMGUR_ACCESS_TOKEN
+		: process.env.IMGUR_ACCESS_TOKEN;
 
 const ItemModal = ({ current, addItem, updateItem }) => {
 	useEffect(() => {
@@ -40,8 +46,6 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 	const [imgLoading, setImgLoading] = useState(false);
 	const [storedInLoading, setStoredInLoading] = useState(false);
 
-	const onChange = e => setItem({ ...item, [e.target.name]: e.target.value });
-
 	const onSubmit = e => {
 		e.preventDefault();
 
@@ -53,6 +57,17 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 
 			clearFields();
 		}
+	};
+
+	const updateAmount = amountAdded => {
+		setItem({
+			...item,
+			amount:
+				amount + amountAdded >= amountGrabbed &&
+				amount + amountAdded > 0
+					? amount + amountAdded
+					: amount
+		});
 	};
 
 	const clearFields = () => {
@@ -71,11 +86,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 	const uploadImage = async (img, storedInCheck) => {
 		const config = {
 			headers: {
-				Authorization: `Bearer ${
-					process.env.NODE_ENV !== 'production'
-						? process.env.IMGUR_ACCESS_TOKEN
-						: process.env.DEV_IMGUR_ACCESS_TOKEN
-				}`
+				Authorization: `Bearer ${imgurAccessToken}`
 			}
 		};
 		try {
@@ -117,13 +128,17 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 			<div className='modal-content'>
 				<div className='container'>
 					<div className='row'>
-						<div className='input-field col s10'>
+						<div className='input-field col s12'>
 							<i className='material-icons prefix'>build</i>
 							<input
 								type='text'
+								id='name'
 								name='name'
 								value={name}
-								onChange={onChange}
+								onChange={e =>
+									setItem({ ...item, name: e.target.value })
+								}
+								required
 							/>
 							{name === '' && (
 								<label htmlFor='name' className='active'>
@@ -131,30 +146,18 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 								</label>
 							)}
 						</div>
-						<div className='input-field col s2'>
-							<i className='material-icons prefix'>
-								{amount > 0
-									? amount < 9
-										? `filter_${amount}`
-										: 'filter_9_plus'
-									: 'filter'}
-							</i>
-							<label htmlFor='amount'>Cantidad</label>
-							<input
-								type='number'
-								name='amount'
-								value={amount}
-								onChange={e =>
-									e.target.value >= amountGrabbed &&
-									e.target.value > 0 &&
-									setItem({
-										...item,
-										amount: Number(e.target.value)
-									})
-								}
-							/>
-						</div>
 					</div>
+					<Ticker
+						amount={amount}
+						onAmountChange={e =>
+							e.target.value >= amountGrabbed &&
+							setItem({
+								...item,
+								amount: Number(e.target.value)
+							})
+						}
+						onBtnClick={updateAmount}
+					/>
 					<label>Etiquetas</label>
 					<br />
 					<br />
@@ -174,51 +177,107 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 							checked={tags}
 						/>
 					</div>
+					<br />
 					<div className='row'>
-						<div className='input-field'>
-							<span className='flow-text'>Imágen: </span>
-							<br />
-							<br />
-							{image !== '' && (
-								<Fragment>
-									<img src={image} alt='' width='100px' />
-									<br />
-								</Fragment>
-							)}
-							{imgLoading && <Spinner />}
-							<input
-								type='file'
-								onChange={e => {
-									setImgLoading(true);
-									uploadImage(e.target.files[0], false);
-								}}
-							/>
+						{/\.(jpg|gif|png)$/.test(image) && (
+							<Fragment>
+								<img src={image} alt='' width='100px' />
+								<br />
+							</Fragment>
+						)}
+						{imgLoading && <Spinner />}
+						<div className='file-field input-field col s3'>
+							<div className='btn cyan darken-1'>
+								<span>Imágen</span>
+								<i className='material-icons left'>
+									attach_file
+								</i>
+								<input
+									type='file'
+									onChange={e => {
+										if (e.target.files[0] !== undefined) {
+											setImgLoading(true);
+											uploadImage(
+												e.target.files[0],
+												false
+											);
+										}
+									}}
+								/>
+							</div>
+							<div className='file-path-wrapper' hidden>
+								<input
+									type='text'
+									className='file-path validate'
+								/>
+							</div>
 						</div>
+						<input
+							type='text'
+							id='image'
+							name='image'
+							value={image}
+							onChange={e =>
+								setItem({ ...item, image: e.target.value })
+							}
+							className='validate col s9'
+						/>
 					</div>
 					<div className='row'>
-						<div className='input-field'>
-							<span>
-								<strong>¿Dónde se guarda?:</strong>{' '}
-							</span>
-							<br />
-							<br />
-							{storedIn !== '' && (
-								<Fragment>
-									<img src={storedIn} alt='' width='100px' />
-									<br />
-								</Fragment>
-							)}
-							{storedInLoading && <Spinner />}
-							<input
-								type='file'
-								onChange={e => {
-									setStoredInLoading(true);
-									uploadImage(e.target.files[0], true);
-								}}
-							/>
-							<br />
-							<br />
+						{/\.(jpg|gif|png)$/.test(storedIn) && (
+							<Fragment>
+								<img src={storedIn} alt='' width='100px' />
+								<br />
+							</Fragment>
+						)}
+						{storedInLoading && <Spinner />}
+						<div className='file-field input-field col s5'>
+							<div className='btn cyan darken-1'>
+								<span>¿Dónde se guarda?</span>
+								<i className='material-icons left'>
+									attach_file
+								</i>
+								<input
+									type='file'
+									onChange={e => {
+										if (e.target.files[0] !== undefined) {
+											setStoredInLoading(true);
+											uploadImage(
+												e.target.files[0],
+												true
+											);
+										}
+									}}
+								/>
+							</div>
+							<div className='file-path-wrapper' hidden>
+								<input
+									type='text'
+									className='file-path validate'
+								/>
+							</div>
 						</div>
+						<input
+							type='text'
+							id='storedIn'
+							name='storedIn'
+							value={storedIn}
+							onChange={e =>
+								setItem({
+									...item,
+									storedIn: e.target.value
+								})
+							}
+							className='validate col s7'
+						/>
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
 					</div>
 				</div>
 			</div>

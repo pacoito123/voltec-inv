@@ -40,7 +40,7 @@ const TagItem = ({
 	return edit ? (
 		<li className='collection-item light-blue lighten-5'>
 			<div className='row'>
-				<div className='input-field col s6'>
+				<div className='input-field col s8 m11'>
 					<input
 						value={tagName}
 						type='text'

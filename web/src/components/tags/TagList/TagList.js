@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getTags } from '../../../actions/tagActions';
-import TagItem from '../TagItem/TagItem';
 import Preloader from '../../layout/Preloader/Preloader';
+import TagItem from '../TagItem/TagItem';
 
 const TagList = ({ tag: { tags, loading }, getTags }) => {
 	useEffect(() => {

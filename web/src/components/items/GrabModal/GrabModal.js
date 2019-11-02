@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { updateItem } from '../../../actions/itemActions';
+import Ticker from '../../layout/Ticker/Ticker';
 
 const GrabModal = ({ current, updateItem }) => {
 	useEffect(() => {
@@ -84,6 +85,15 @@ const GrabModal = ({ current, updateItem }) => {
 		setGrabAmount(1);
 	};
 
+	const updateAmount = amountAdded => {
+		setGrabAmount(
+			grabAmount + amountAdded <= amount - amountGrabbed &&
+				grabAmount + amountAdded > 0
+				? grabAmount + amountAdded
+				: grabAmount
+		);
+	};
+
 	return (
 		item !== null && (
 			<div
@@ -101,37 +111,31 @@ const GrabModal = ({ current, updateItem }) => {
 					<div className='container'>
 						<div className='row'>
 							<div className='input-field'>
+								<i className='material-icons prefix'>
+									account_circle
+								</i>
 								<input
 									type='text'
-									name='name'
+									id='grab'
+									name='grab'
 									value={grabName}
 									onChange={e => setGrabName(e.target.value)}
 									required
 								/>
-								<label htmlFor='name' className='active'>
+								<label htmlFor='grab' className='active'>
 									¿Quién lo va a agarrar?
 								</label>
 							</div>
 						</div>
-						<div className='row'>
-							<div className='input-field'>
-								<label htmlFor='amount'>
-									Cantidad por agarrar
-								</label>
-								<input
-									type='number'
-									name='amount'
-									value={grabAmount}
-									onChange={e =>
-										e.target.value <=
-											amount - amountGrabbed &&
-										e.target.value > 0 &&
-										setGrabAmount(Number(e.target.value))
-									}
-									required
-								/>
-							</div>
-						</div>
+						<Ticker
+							amount={grabAmount}
+							onAmountChange={e =>
+								e.target.value <= amount - amountGrabbed &&
+								e.target.value > 0 &&
+								setGrabAmount(Number(e.target.value))
+							}
+							onBtnClick={updateAmount}
+						/>
 					</div>
 				</div>
 				<div className='modal-footer cyan darken-1'>

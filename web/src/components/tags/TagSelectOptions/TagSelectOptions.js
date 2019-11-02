@@ -7,7 +7,7 @@ const TagSelectOptions = ({ tag: { tags, loading }, onCheck, checked }) => {
 	return !loading && tags != null ? (
 		tags.length > 0 ? (
 			tags.map(t => (
-				<div className='col s6' key={t.id}>
+				<div className='col s6 m4' key={t.id}>
 					<label>
 						<input
 							type='checkbox'
