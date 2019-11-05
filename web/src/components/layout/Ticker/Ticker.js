@@ -4,7 +4,7 @@ import React from 'react';
 const Ticker = ({ amount, onAmountChange, onBtnClick }) => {
 	return (
 		<div className='row'>
-			<div className='input-field col s6 m8 xl10'>
+			<div className='input-field col s6 m8'>
 				<i className='material-icons prefix'>
 					{amount > 0
 						? amount <= 9
@@ -21,7 +21,7 @@ const Ticker = ({ amount, onAmountChange, onBtnClick }) => {
 					onChange={onAmountChange}
 				/>
 			</div>
-			<div className='col s3 m2 xl1 center'>
+			<div className='col s3 m2'>
 				<a
 					href='#!'
 					onClick={() => onBtnClick(1)}
@@ -30,7 +30,7 @@ const Ticker = ({ amount, onAmountChange, onBtnClick }) => {
 					<i className='material-icons'>add</i>
 				</a>
 			</div>
-			<div className='col s3 m2 xl1 center'>
+			<div className='col s3 m2'>
 				<a
 					href='#!'
 					onClick={() => onBtnClick(-1)}

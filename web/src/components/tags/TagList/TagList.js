@@ -13,7 +13,7 @@ const TagList = ({ tag: { tags, loading }, getTags }) => {
 
 	return !loading && tags != null ? (
 		tags.length > 0 ? (
-			tags.map(t => <TagItem tag={t} key={t.id} />)
+			tags.map(t => <TagItem tag={t} key={t._id} />)
 		) : (
 			<div className='light-blue lighten-5 center'>
 				<span className='flow-text'>

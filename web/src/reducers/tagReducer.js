@@ -25,14 +25,14 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				tags: state.tags.map(tag =>
-					tag.id === action.payload.id ? action.payload : tag
+					tag._id === action.payload._id ? action.payload : tag
 				),
 				loading: false
 			};
 		case REMOVE_TAG:
 			return {
 				...state,
-				tags: state.tags.filter(tag => tag.id !== action.payload),
+				tags: state.tags.filter(tag => tag._id !== action.payload),
 				loading: false
 			};
 		case SET_LOADING:

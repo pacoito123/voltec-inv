@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { clearFilter, filterItems } from '../../../../actions/itemActions';
 
-const CardTags = ({ tags, hide }) => {
+const CardTags = ({ tags, hide, filtered, filterItems, clearFilter }) => {
 	return (
 		<Fragment>
 			{[...tags].reverse().map(tag => (
@@ -9,6 +11,10 @@ const CardTags = ({ tags, hide }) => {
 					key={tag}
 					className={`new badge ${hide}`}
 					data-badge-caption={`${tag}`}
+					onClick={() => {
+						if (filtered) clearFilter();
+						filterItems(tag);
+					}}
 				/>
 			))}
 		</Fragment>
@@ -17,7 +23,17 @@ const CardTags = ({ tags, hide }) => {
 
 CardTags.propTypes = {
 	tags: PropTypes.array.isRequired,
-	hide: PropTypes.string.isRequired
+	hide: PropTypes.string.isRequired,
+	filtered: PropTypes.array,
+	filterItems: PropTypes.func.isRequired,
+	clearFilter: PropTypes.func.isRequired
 };
 
-export default CardTags;
+const mapStateToProps = state => ({
+	filtered: state.item.filtered
+});
+
+export default connect(
+	mapStateToProps,
+	{ filterItems, clearFilter }
+)(CardTags);

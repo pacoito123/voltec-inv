@@ -6,7 +6,7 @@ export const getTags = () => async dispatch => {
 	try {
 		setLoading();
 
-		const res = await Axios.get('/tags');
+		const res = await Axios.get('/api/tags');
 
 		dispatch({
 			type: GET_TAGS,
@@ -30,7 +30,7 @@ export const addTag = tag => async dispatch => {
 	try {
 		setLoading();
 
-		const res = await Axios.post('/tags', tag, config);
+		const res = await Axios.post('/api/tags', tag, config);
 
 		dispatch({
 			type: ADD_TAG,
@@ -39,7 +39,7 @@ export const addTag = tag => async dispatch => {
 	} catch (err) {
 		dispatch({
 			type: TAG_ERROR,
-			payload: err.response.statusText
+			payload: err
 		});
 	}
 };
@@ -54,7 +54,7 @@ export const updateTag = tag => async dispatch => {
 	try {
 		setLoading();
 
-		const res = await Axios.put(`/tags/${tag.id}`, tag, config);
+		const res = await Axios.put(`/api/tags/${tag._id}`, tag, config);
 
 		dispatch({
 			type: UPDATE_TAG,
@@ -69,15 +69,15 @@ export const updateTag = tag => async dispatch => {
 };
 
 // Remove tag
-export const removeTag = id => async dispatch => {
+export const removeTag = _id => async dispatch => {
 	try {
 		setLoading();
 
-		await Axios.delete(`/tags/${id}`);
+		await Axios.delete(`/api/tags/${_id}`);
 
 		dispatch({
 			type: REMOVE_TAG,
-			payload: id
+			payload: _id
 		});
 	} catch (err) {
 		dispatch({

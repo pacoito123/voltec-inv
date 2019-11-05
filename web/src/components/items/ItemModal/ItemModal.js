@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { addItem, updateItem } from '../../../actions/itemActions';
 import Spinner from '../../layout/Spinner/Spinner';
@@ -16,17 +16,7 @@ let imgurAccessToken =
 const ItemModal = ({ current, addItem, updateItem }) => {
 	useEffect(() => {
 		if (current !== null) setItem(current);
-		else
-			setItem({
-				name: '',
-				tags: [],
-				amount: 1,
-				image: '',
-				storedIn: '',
-				grabbedBy: [],
-				amountGrabbed: 0,
-				timesGrabbed: 0
-			});
+		else clearFields();
 		// eslint-disable-next-line
 	}, [current]);
 
@@ -43,8 +33,8 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 
 	const { name, tags, amount, image, storedIn, amountGrabbed } = item;
 
-	const [imgLoading, setImgLoading] = useState(false);
-	const [storedInLoading, setStoredInLoading] = useState(false);
+	const imgLoading = useRef(false);
+	const storedInLoading = useRef(false);
 
 	const onSubmit = e => {
 		e.preventDefault();
@@ -98,10 +88,10 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 
 			if (!storedInCheck) {
 				setItem({ ...item, image: res.data.data.link });
-				setImgLoading(false);
+				imgLoading.current.value = false;
 			} else {
 				setItem({ ...item, storedIn: res.data.data.link });
-				setStoredInLoading(false);
+				storedInLoading.current.value = false;
 			}
 
 			M.toast({ html: 'Imágen subida!' });
@@ -151,6 +141,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 						amount={amount}
 						onAmountChange={e =>
 							e.target.value >= amountGrabbed &&
+							e.target.value > 0 &&
 							setItem({
 								...item,
 								amount: Number(e.target.value)
@@ -164,7 +155,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 					<div className='row'>
 						<TagSelectOptions
 							onCheck={e => {
-								const newTags = [...tags];
+								const newTags = tags.slice();
 								if (e.target.checked)
 									newTags.push(e.target.name);
 								else
@@ -185,8 +176,8 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 								<br />
 							</Fragment>
 						)}
-						{imgLoading && <Spinner />}
-						<div className='file-field input-field col s3'>
+						{imgLoading.current.value && <Spinner />}
+						<div className='file-field input-field col s7 m5'>
 							<div className='btn cyan darken-1'>
 								<span>Imágen</span>
 								<i className='material-icons left'>
@@ -196,7 +187,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 									type='file'
 									onChange={e => {
 										if (e.target.files[0] !== undefined) {
-											setImgLoading(true);
+											imgLoading.current.value = true;
 											uploadImage(
 												e.target.files[0],
 												false
@@ -220,7 +211,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 							onChange={e =>
 								setItem({ ...item, image: e.target.value })
 							}
-							className='validate col s9'
+							className='validate col s5 m7'
 						/>
 					</div>
 					<div className='row'>
@@ -230,8 +221,8 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 								<br />
 							</Fragment>
 						)}
-						{storedInLoading && <Spinner />}
-						<div className='file-field input-field col s5'>
+						{storedInLoading.current.value && <Spinner />}
+						<div className='file-field input-field col s11 m7'>
 							<div className='btn cyan darken-1'>
 								<span>¿Dónde se guarda?</span>
 								<i className='material-icons left'>
@@ -241,7 +232,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 									type='file'
 									onChange={e => {
 										if (e.target.files[0] !== undefined) {
-											setStoredInLoading(true);
+											storedInLoading.current.value = true;
 											uploadImage(
 												e.target.files[0],
 												true
@@ -268,7 +259,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 									storedIn: e.target.value
 								})
 							}
-							className='validate col s7'
+							className='validate col s1 m5'
 						/>
 						<br />
 						<br />

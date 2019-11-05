@@ -1,17 +1,24 @@
-import React, { Fragment } from 'react';
-import GrabModal from '../../items/GrabModal/GrabModal';
+import PropTypes from 'prop-types';
+import React, { Fragment, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { loadUser } from '../../../actions/authActions';
+import VoltecLogo from '../../../assets/Logo.png';
 import ItemList from '../../items/ItemList/ItemList';
-import ItemModal from '../../items/ItemModal/ItemModal';
-import StoredInModal from '../../items/StoredInModal/StoredInModal';
-import AddBtn from '../../layout/AddBtn/AddBtn';
+import Logo from '../../layout/Logo/Logo';
 import SearchBar from '../../layout/SearchBar/SearchBar';
-import VoltecLogo from '../../layout/VoltecLogo/VoltecLogo';
-import TagModal from '../../tags/TagModal/TagModal';
 
-const Home = () => {
+const Home = ({ loadUser }) => {
+	useEffect(() => {
+		loadUser();
+		// eslint-disable-next-line
+	}, []);
 	return (
 		<Fragment>
-			<VoltecLogo width='30%' />
+			<Logo
+				width='30%'
+				link='http://www.voltec6647.com/'
+				image={VoltecLogo}
+			/>
 			<div className='row'>
 				<div className='col s12'>
 					<SearchBar />
@@ -19,13 +26,15 @@ const Home = () => {
 					<ItemList />
 				</div>
 			</div>
-			<AddBtn />
-			<ItemModal />
-			<StoredInModal />
-			<GrabModal />
-			<TagModal />
 		</Fragment>
 	);
 };
 
-export default Home;
+Home.propTypes = {
+	loadUser: PropTypes.func.isRequired
+};
+
+export default connect(
+	null,
+	{ loadUser }
+)(Home);

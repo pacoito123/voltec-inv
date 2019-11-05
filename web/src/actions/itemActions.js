@@ -1,23 +1,12 @@
 import Axios from 'axios';
-import {
-	ADD_ITEM,
-	CLEAR_CURRENT,
-	GET_ITEMS,
-	ITEM_ERROR,
-	REMOVE_ITEM,
-	SET_CURRENT,
-	SET_LOADING,
-	UPDATE_ITEM,
-	FILTER_ITEMS,
-	CLEAR_FILTER
-} from './types';
+import { ADD_ITEM, CLEAR_CURRENT, CLEAR_FILTER, FILTER_ITEMS, GET_ITEMS, ITEM_ERROR, REMOVE_ITEM, SET_CURRENT, SET_LOADING, UPDATE_ITEM } from './types';
 
 // Get items from server
 export const getItems = () => async dispatch => {
 	try {
 		setLoading();
 
-		const res = await Axios.get('/items');
+		const res = await Axios.get('/api/items');
 
 		dispatch({
 			type: GET_ITEMS,
@@ -26,7 +15,7 @@ export const getItems = () => async dispatch => {
 	} catch (err) {
 		dispatch({
 			type: ITEM_ERROR,
-			payload: err.response.statusText
+			payload: err
 		});
 	}
 };
@@ -40,7 +29,7 @@ export const addItem = item => async dispatch => {
 	};
 
 	try {
-		const res = await Axios.post('/items', item, config);
+		const res = await Axios.post('/api/items', item, config);
 
 		dispatch({
 			type: ADD_ITEM,
@@ -55,15 +44,15 @@ export const addItem = item => async dispatch => {
 };
 
 // Remove item
-export const removeItem = id => async dispatch => {
+export const removeItem = _id => async dispatch => {
 	try {
 		setLoading();
 
-		await Axios.delete(`/items/${id}`);
+		await Axios.delete(`/api/items/${_id}`);
 
 		dispatch({
 			type: REMOVE_ITEM,
-			payload: id
+			payload: _id
 		});
 	} catch (err) {
 		dispatch({
@@ -83,7 +72,7 @@ export const updateItem = item => async dispatch => {
 	try {
 		setLoading();
 
-		const res = await Axios.put(`/items/${item.id}`, item, config);
+		const res = await Axios.put(`/api/items/${item._id}`, item, config);
 
 		dispatch({
 			type: UPDATE_ITEM,
@@ -111,6 +100,20 @@ export const clearCurrent = () => {
 		type: CLEAR_CURRENT
 	};
 };
+
+// Filter Items
+export const filterItems = text => dispatch =>
+	dispatch({
+		type: FILTER_ITEMS,
+		payload: text
+	});
+
+// Clear Filter
+export const clearFilter = () => dispatch =>
+	dispatch({
+		type: CLEAR_FILTER,
+		payload: null
+	});
 
 // Set loading to true
 export const setLoading = () => {

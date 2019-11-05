@@ -4,9 +4,8 @@
   "description": "Inventory management app built for FRC team #6647.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
     "server": "nodemon server.js",
-    "web": "npm start --prefix client",
+    "web": "npm start --prefix web",
     "webInstall": "npm install --prefix web",
     "dev": "concurrently \"npm run server\" \"npm run web\""
   },

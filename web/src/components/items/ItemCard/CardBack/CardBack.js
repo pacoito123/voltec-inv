@@ -6,11 +6,11 @@ import { removeItem, setCurrent } from '../../../../actions/itemActions';
 import CardTags from '../CardTags/CardTags';
 import CardTable from './CardTable/CardTable';
 
-const CardBack = ({ item, setCurrent, removeItem }) => {
+const CardBack = ({ item, setCurrent, removeItem, user }) => {
 	const { name, tags, amountGrabbed, grabbedBy } = item;
 
 	const onDelete = () => {
-		removeItem(item.id);
+		removeItem(item._id);
 		M.toast({ html: 'Objeto eliminado.' });
 	};
 
@@ -31,26 +31,30 @@ const CardBack = ({ item, setCurrent, removeItem }) => {
 				¿Dónde se guarda?
 				<i className='material-icons right'>archive</i>
 			</a>
-			<br />
-			<br />
-			<a
-				className='waves-effect waves-light btn green darken-2 modal-trigger col s12'
-				href='#item-modal'
-				onClick={() => setCurrent(item)}
-			>
-				Editar
-				<i className='material-icons right'>edit</i>
-			</a>
-			<br />
-			<br />
-			<a
-				className='waves-effect waves-light btn red darken-4 col s12'
-				href='#!'
-				onClick={onDelete}
-			>
-				Eliminar
-				<i className='material-icons right'>delete_forever</i>
-			</a>
+			{user !== null && user.admin && (
+				<Fragment>
+					<br />
+					<br />
+					<a
+						className='waves-effect waves-light btn green darken-2 modal-trigger col s12'
+						href='#item-modal'
+						onClick={() => setCurrent(item)}
+					>
+						Editar
+						<i className='material-icons right'>edit</i>
+					</a>
+					<br />
+					<br />
+					<a
+						className='waves-effect waves-light btn red darken-4 col s12'
+						href='#!'
+						onClick={onDelete}
+					>
+						Eliminar
+						<i className='material-icons right'>delete_forever</i>
+					</a>
+				</Fragment>
+			)}
 		</Fragment>
 	);
 };
@@ -58,10 +62,15 @@ const CardBack = ({ item, setCurrent, removeItem }) => {
 CardBack.propTypes = {
 	item: PropTypes.object.isRequired,
 	setCurrent: PropTypes.func.isRequired,
-	removeItem: PropTypes.func.isRequired
+	removeItem: PropTypes.func.isRequired,
+	user: PropTypes.object
 };
 
+const mapStateToProps = state => ({
+	user: state.auth.user
+});
+
 export default connect(
-	null,
+	mapStateToProps,
 	{ setCurrent, removeItem }
 )(CardBack);

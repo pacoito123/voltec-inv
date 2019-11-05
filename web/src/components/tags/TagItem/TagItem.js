@@ -5,7 +5,7 @@ import { updateItem } from '../../../actions/itemActions';
 import { removeTag, updateTag } from '../../../actions/tagActions';
 
 const TagItem = ({
-	tag: { tag, id },
+	tag: { tag, _id },
 	updateTag,
 	removeTag,
 	items,
@@ -23,7 +23,7 @@ const TagItem = ({
 				updateItem({ ...item, tags: newTags });
 			}
 		});
-		updateTag({ tag: tagName, id });
+		updateTag({ tag: tagName, _id });
 		setEdit(false);
 	};
 
@@ -34,7 +34,7 @@ const TagItem = ({
 				updateItem({ ...item, tags: newTags });
 			}
 		});
-		removeTag(id);
+		removeTag(_id);
 	};
 
 	return edit ? (
@@ -44,7 +44,6 @@ const TagItem = ({
 					<input
 						value={tagName}
 						type='text'
-						className='validate'
 						onChange={e => setTagName(e.target.value)}
 					/>
 				</div>

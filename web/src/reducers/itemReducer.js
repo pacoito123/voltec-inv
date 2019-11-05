@@ -1,19 +1,9 @@
-import {
-	ADD_ITEM,
-	CLEAR_CURRENT,
-	GET_ITEMS,
-	ITEM_ERROR,
-	REMOVE_ITEM,
-	SET_CURRENT,
-	SET_LOADING,
-	UPDATE_ITEM,
-	FILTER_ITEMS,
-	CLEAR_FILTER
-} from '../actions/types';
+import { ADD_ITEM, CLEAR_CURRENT, CLEAR_FILTER, FILTER_ITEMS, GET_ITEMS, ITEM_ERROR, REMOVE_ITEM, SET_CURRENT, SET_LOADING, UPDATE_ITEM } from '../actions/types';
 
 const initialState = {
 	items: null,
 	current: null,
+	filtered: null,
 	loading: false,
 	error: null
 };
@@ -35,14 +25,14 @@ export default (state = initialState, action) => {
 		case REMOVE_ITEM:
 			return {
 				...state,
-				items: state.items.filter(item => item.id !== action.payload),
+				items: state.items.filter(item => item._id !== action.payload),
 				loading: false
 			};
 		case UPDATE_ITEM:
 			return {
 				...state,
 				items: state.items.map(item =>
-					item.id === action.payload.id ? action.payload : item
+					item._id === action.payload._id ? action.payload : item
 				),
 				loading: false
 			};
@@ -60,6 +50,22 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				current: null
+			};
+		case FILTER_ITEMS:
+			return {
+				...state,
+				filtered: state.items.filter(item => {
+					const regex = new RegExp(`${action.payload}`, 'gi');
+					return (
+						item.name.match(regex) ||
+						item.tags.includes(action.payload)
+					);
+				})
+			};
+		case CLEAR_FILTER:
+			return {
+				...state,
+				filtered: null
 			};
 		case ITEM_ERROR:
 			console.error(action.payload);
