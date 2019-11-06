@@ -16,7 +16,7 @@ const CardTable = ({ grabbedBy }) => {
 				</thead>
 				<tbody>
 					{grabbedBy.map(grab => (
-						<tr key={grab}>
+						<tr key={grab.date}>
 							<td>{grab.user}</td>
 							<td>{grab.amount}</td>
 							<td>

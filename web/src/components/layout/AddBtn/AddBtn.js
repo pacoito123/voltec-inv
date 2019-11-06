@@ -4,13 +4,6 @@ import { connect } from 'react-redux';
 import { clearCurrent } from '../../../actions/itemActions';
 
 const AddBtn = ({ isAuthenticated, user, clearCurrent }) => {
-	if (
-		isAuthenticated === null ||
-		!isAuthenticated ||
-		(user === null || !user.admin)
-	)
-		return null;
-
 	const clearAll = () => {
 		clearCurrent();
 	};
@@ -18,7 +11,10 @@ const AddBtn = ({ isAuthenticated, user, clearCurrent }) => {
 	return (
 		<div className='fixed-action-btn'>
 			<a
-				className='btn-floating btn-large red modal-trigger'
+				className={`btn-floating btn-large red modal-trigger ${(user ===
+					null ||
+					!user.admin) &&
+					'disabled'}`}
 				href='#item-modal'
 				onClick={clearAll}
 			>
@@ -28,7 +24,10 @@ const AddBtn = ({ isAuthenticated, user, clearCurrent }) => {
 				<li>
 					<a
 						href='#tag-modal'
-						className='btn-floating green modal-trigger'
+						className={`btn-floating green modal-trigger ${(user ===
+							null ||
+							!user.admin) &&
+							'disabled'}`}
 					>
 						<i className='material-icons'>label</i>
 					</a>

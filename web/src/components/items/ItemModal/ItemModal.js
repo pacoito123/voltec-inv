@@ -3,7 +3,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { addItem, updateItem } from '../../../actions/itemActions';
+import { addItem, updateItem, clearCurrent } from '../../../actions/itemActions';
 import Spinner from '../../layout/Spinner/Spinner';
 import Ticker from '../../layout/Ticker/Ticker';
 import TagSelectOptions from '../../tags/TagSelectOptions/TagSelectOptions';
@@ -13,7 +13,7 @@ let imgurAccessToken =
 		? process.env.REACT_APP_IMGUR_ACCESS_TOKEN
 		: process.env.IMGUR_ACCESS_TOKEN;
 
-const ItemModal = ({ current, addItem, updateItem }) => {
+const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 	useEffect(() => {
 		if (current !== null) setItem(current);
 		else clearFields();
@@ -43,7 +43,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 			M.toast({ html: 'Faltó por ingresar algunos parámetros...' });
 		else {
 			if (current === null) addItem(item);
-			else updateItem(item);
+			else updateItem(item, false);
 
 			clearFields();
 		}
@@ -71,6 +71,7 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 			amountGrabbed: 0,
 			timesGrabbed: 0
 		});
+		clearCurrent();
 	};
 
 	const uploadImage = async (img, storedInCheck) => {
@@ -289,7 +290,8 @@ const ItemModal = ({ current, addItem, updateItem }) => {
 ItemModal.propTypes = {
 	current: PropTypes.object,
 	addItem: PropTypes.func.isRequired,
-	updateItem: PropTypes.func.isRequired
+	updateItem: PropTypes.func.isRequired,
+	clearCurrent: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -298,5 +300,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ addItem, updateItem }
+	{ addItem, updateItem, clearCurrent }
 )(ItemModal);

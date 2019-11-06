@@ -1,5 +1,16 @@
 import Axios from 'axios';
-import { ADD_ITEM, CLEAR_CURRENT, CLEAR_FILTER, FILTER_ITEMS, GET_ITEMS, ITEM_ERROR, REMOVE_ITEM, SET_CURRENT, SET_LOADING, UPDATE_ITEM } from './types';
+import {
+	ADD_ITEM,
+	CLEAR_CURRENT,
+	CLEAR_FILTER,
+	FILTER_ITEMS,
+	GET_ITEMS,
+	ITEM_ERROR,
+	REMOVE_ITEM,
+	SET_CURRENT,
+	SET_LOADING,
+	UPDATE_ITEM
+} from './types';
 
 // Get items from server
 export const getItems = () => async dispatch => {
@@ -27,7 +38,6 @@ export const addItem = item => async dispatch => {
 			'Content-Type': 'application/json'
 		}
 	};
-
 	try {
 		const res = await Axios.post('/api/items', item, config);
 
@@ -38,7 +48,7 @@ export const addItem = item => async dispatch => {
 	} catch (err) {
 		dispatch({
 			type: ITEM_ERROR,
-			payload: err.response.statusText
+			payload: err
 		});
 	}
 };
@@ -57,13 +67,13 @@ export const removeItem = _id => async dispatch => {
 	} catch (err) {
 		dispatch({
 			type: ITEM_ERROR,
-			payload: err.response.statusText
+			payload: err
 		});
 	}
 };
 
 // Update item
-export const updateItem = item => async dispatch => {
+export const updateItem = (item, grab) => async dispatch => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json'
@@ -72,7 +82,7 @@ export const updateItem = item => async dispatch => {
 	try {
 		setLoading();
 
-		const res = await Axios.put(`/api/items/${item._id}`, item, config);
+		const res = await Axios.put(`/api/items/${item._id}`, [item, grab], config);
 
 		dispatch({
 			type: UPDATE_ITEM,
@@ -81,25 +91,24 @@ export const updateItem = item => async dispatch => {
 	} catch (err) {
 		dispatch({
 			type: ITEM_ERROR,
-			payload: err.response.statusText
+			payload: err
 		});
 	}
 };
 
 // Set current item
-export const setCurrent = item => {
-	return {
+export const setCurrent = item => dispatch => {
+	dispatch({
 		type: SET_CURRENT,
 		payload: item
-	};
+	});
 };
 
 // Clear current item
-export const clearCurrent = () => {
-	return {
+export const clearCurrent = () => dispatch =>
+	dispatch({
 		type: CLEAR_CURRENT
-	};
-};
+	});
 
 // Filter Items
 export const filterItems = text => dispatch =>
@@ -111,13 +120,11 @@ export const filterItems = text => dispatch =>
 // Clear Filter
 export const clearFilter = () => dispatch =>
 	dispatch({
-		type: CLEAR_FILTER,
-		payload: null
+		type: CLEAR_FILTER
 	});
 
 // Set loading to true
-export const setLoading = () => {
-	return {
+export const setLoading = () => dispatch =>
+	dispatch({
 		type: SET_LOADING
-	};
-};
+	});

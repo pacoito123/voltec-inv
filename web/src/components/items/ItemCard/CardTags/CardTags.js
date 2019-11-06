@@ -6,7 +6,7 @@ import { clearFilter, filterItems } from '../../../../actions/itemActions';
 const CardTags = ({ tags, hide, filtered, filterItems, clearFilter }) => {
 	return (
 		<Fragment>
-			{[...tags].reverse().map(tag => (
+			{[...tags].map(tag => (
 				<span
 					key={tag}
 					className={`new badge ${hide}`}

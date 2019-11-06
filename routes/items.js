@@ -80,7 +80,16 @@ router.post(
 // @desc Update item
 // @access Private
 router.put('/:id', auth, async (req, res) => {
-	const { name, amount, tags, image, storedIn } = req.body;
+	const {
+		name,
+		amount,
+		tags,
+		image,
+		storedIn,
+		grabbedBy,
+		amountGrabbed,
+		timesGrabbed
+	} = req.body[0];
 
 	// Build item object
 	const itemFields = {};
@@ -89,6 +98,9 @@ router.put('/:id', auth, async (req, res) => {
 	if (tags) itemFields.tags = tags;
 	if (image) itemFields.image = image;
 	if (storedIn) itemFields.storedIn = storedIn;
+	if (grabbedBy) itemFields.grabbedBy = grabbedBy;
+	if (amountGrabbed) itemFields.amountGrabbed = amountGrabbed;
+	if (timesGrabbed) itemFields.timesGrabbed = timesGrabbed;
 
 	try {
 		let item = await Item.findById(req.params.id);
@@ -97,7 +109,7 @@ router.put('/:id', auth, async (req, res) => {
 			return res.status(500).json({ msg: 'Objeto no encontrado.' });
 
 		// Make sure user is admin.
-		if (!req.user.admin)
+		if (!req.user.admin && !req.body[1])
 			return res.status(401).json({ msg: 'Usuario no autorizado.' });
 
 		item = await Item.findByIdAndUpdate(
