@@ -12,6 +12,7 @@ const Home = ({ loadUser }) => {
 		loadUser();
 		// eslint-disable-next-line
 	}, []);
+
 	return (
 		<Fragment>
 			<Logo

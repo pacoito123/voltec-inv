@@ -1,16 +1,5 @@
 import Axios from 'axios';
-import {
-	ADD_ITEM,
-	CLEAR_CURRENT,
-	CLEAR_FILTER,
-	FILTER_ITEMS,
-	GET_ITEMS,
-	ITEM_ERROR,
-	REMOVE_ITEM,
-	SET_CURRENT,
-	SET_LOADING,
-	UPDATE_ITEM
-} from './types';
+import { ADD_ITEM, CLEAR_CURRENT, CLEAR_FILTER, FILTER_ITEMS, GET_ITEMS, ITEM_ERROR, REMOVE_ITEM, SET_CURRENT, SET_LOADING, UPDATE_ITEM } from './types';
 
 // Get items from server
 export const getItems = () => async dispatch => {

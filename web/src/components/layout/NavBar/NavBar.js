@@ -15,7 +15,7 @@ const NavBar = ({ isAuthenticated, user, logout }) => {
 						{isAuthenticated && user !== null ? (
 							<Fragment>
 								<li>
-									<a href='#!'>{user.name}</a>
+									<a href='/user'>{user.name}</a>
 								</li>
 								<li>
 									<a href='#!' onClick={() => logout()}>
@@ -27,7 +27,7 @@ const NavBar = ({ isAuthenticated, user, logout }) => {
 							</Fragment>
 						) : (
 							<li>
-								<a href='/login'>
+								<a href='/user'>
 									<i className='material-icons'>
 										account_circle
 									</i>

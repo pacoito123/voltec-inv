@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import { clearFilter, filterItems } from '../../../actions/itemActions';
 
 const SearchBar = ({ filterItems, clearFilter, filtered }) => {
-	const text = useRef('');
-
 	useEffect(() => {
 		if (filtered === null) text.current.value = '';
-	});
+	}, [filtered]);
+	const text = useRef('');
 
 	const onChange = e => {
 		if (text.current.value !== '') filterItems(e.target.value);

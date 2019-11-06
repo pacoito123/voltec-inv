@@ -1,9 +1,9 @@
 import Axios from 'axios';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { addItem, updateItem, clearCurrent } from '../../../actions/itemActions';
+import { addItem, clearCurrent, updateItem } from '../../../actions/itemActions';
 import Spinner from '../../layout/Spinner/Spinner';
 import Ticker from '../../layout/Ticker/Ticker';
 import TagSelectOptions from '../../tags/TagSelectOptions/TagSelectOptions';
@@ -33,8 +33,8 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 
 	const { name, tags, amount, image, storedIn, amountGrabbed } = item;
 
-	const imgLoading = useRef(false);
-	const storedInLoading = useRef(false);
+	const [imgLoading, setImgLoading] = useState(false);
+	const [storedInLoading, setStoredInLoading] = useState(false);
 
 	const onSubmit = e => {
 		e.preventDefault();
@@ -74,6 +74,7 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 		clearCurrent();
 	};
 
+	// TODO: Send process to back-end.
 	const uploadImage = async (img, storedInCheck) => {
 		const config = {
 			headers: {
@@ -89,10 +90,10 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 
 			if (!storedInCheck) {
 				setItem({ ...item, image: res.data.data.link });
-				imgLoading.current.value = false;
+				setImgLoading(false);
 			} else {
 				setItem({ ...item, storedIn: res.data.data.link });
-				storedInLoading.current.value = false;
+				setStoredInLoading(false);
 			}
 
 			M.toast({ html: 'Imágen subida!' });
@@ -177,7 +178,7 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 								<br />
 							</Fragment>
 						)}
-						{imgLoading.current.value && <Spinner />}
+						{imgLoading && <Spinner />}
 						<div className='file-field input-field col s7 m5'>
 							<div className='btn cyan darken-1'>
 								<span>Imágen</span>
@@ -188,7 +189,7 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 									type='file'
 									onChange={e => {
 										if (e.target.files[0] !== undefined) {
-											imgLoading.current.value = true;
+											setImgLoading(true);
 											uploadImage(
 												e.target.files[0],
 												false
@@ -222,7 +223,7 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 								<br />
 							</Fragment>
 						)}
-						{storedInLoading.current.value && <Spinner />}
+						{storedInLoading && <Spinner />}
 						<div className='file-field input-field col s11 m7'>
 							<div className='btn cyan darken-1'>
 								<span>¿Dónde se guarda?</span>
@@ -233,7 +234,7 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 									type='file'
 									onChange={e => {
 										if (e.target.files[0] !== undefined) {
-											storedInLoading.current.value = true;
+											setStoredInLoading(true);
 											uploadImage(
 												e.target.files[0],
 												true

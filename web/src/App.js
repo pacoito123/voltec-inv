@@ -11,6 +11,7 @@ import NavBar from './components/layout/NavBar/NavBar';
 import Home from './components/pages/Home/Home';
 import Login from './components/pages/Login/Login';
 import Register from './components/pages/Register/Register';
+import User from './components/pages/User/User';
 import PrivateRoute from './components/routing/PrivateRoute/PrivateRoute';
 import TagModal from './components/tags/TagModal/TagModal';
 import store from './store';
@@ -34,6 +35,7 @@ const App = () => {
 								path='/register'
 								component={Register}
 							/>
+							<PrivateRoute exact path='/user' component={User} />
 						</Switch>
 					</div>
 					<AddBtn />
