@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { clearFilter, filterItems } from '../../../actions/itemActions';
 
-const SearchBar = ({ filterItems, clearFilter, filtered }) => {
+const SearchBar = ({ filterItems, clearFilter, filtered, loading }) => {
 	useEffect(() => {
 		if (filtered === null) text.current.value = '';
 	}, [filtered]);
@@ -24,12 +24,21 @@ const SearchBar = ({ filterItems, clearFilter, filtered }) => {
 			<div className='nav-wrapper blue'>
 				<form>
 					<div className='input-field'>
-						<input
-							ref={text}
-							id='search'
-							type='search'
-							onChange={onChange}
-						/>
+						{loading ? (
+							<input
+								ref={text}
+								id='search'
+								type='search'
+								disabled
+							/>
+						) : (
+							<input
+								ref={text}
+								id='search'
+								type='search'
+								onChange={onChange}
+							/>
+						)}
 						<label className='label-icon' htmlFor='search'>
 							<i className='material-icons'>search</i>
 						</label>
@@ -46,11 +55,13 @@ const SearchBar = ({ filterItems, clearFilter, filtered }) => {
 SearchBar.propTypes = {
 	filterItems: PropTypes.func.isRequired,
 	clearFilter: PropTypes.func.isRequired,
-	filtered: PropTypes.array
+	filtered: PropTypes.array,
+	loading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
-	filtered: state.item.filtered
+	filtered: state.item.filtered,
+	loading: state.item.loading
 });
 
 export default connect(

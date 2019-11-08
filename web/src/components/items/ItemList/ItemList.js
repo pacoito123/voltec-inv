@@ -18,7 +18,7 @@ const ItemList = ({ item: { items, loading }, filtered, getItems }) => {
 
 	return (
 		<div className='row'>
-			{items !== null && !loading ? (
+			{!loading ? (
 				filtered !== null ? (
 					filtered.map(i => <ItemCard item={i} key={i._id} />)
 				) : (

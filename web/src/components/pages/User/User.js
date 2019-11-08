@@ -10,8 +10,8 @@ import Logo from '../../layout/Logo/Logo';
 
 const User = ({ items, user, getItems, updateItem, loadUser }) => {
 	useEffect(() => {
-		getItems();
 		loadUser();
+		getItems();
 		// eslint-disable-next-line
 	}, []);
 
@@ -21,8 +21,6 @@ const User = ({ items, user, getItems, updateItem, loadUser }) => {
 			grabbedBy: [...i.grabbedBy].filter(grab => grab.date !== date),
 			amountGrabbed: i.amountGrabbed - amount
 		};
-
-		// TODO: Fix this.
 
 		updateItem(newItem, true);
 	};
@@ -34,7 +32,7 @@ const User = ({ items, user, getItems, updateItem, loadUser }) => {
 				link='http://www.voltec6647.com/'
 				image={VoltecLogo}
 			/>
-			<table className='responsive-table centered light-blue lighten-4 striped'>
+			<table className='responsive-table centered light-blue lighten-4 highlight '>
 				<thead>
 					<tr>
 						<th>Usuario</th>

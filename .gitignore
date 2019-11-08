@@ -12,6 +12,7 @@
 # production
 /build
 /web/build
+/config/default.json
 
 # misc
 .DS_Store
@@ -19,7 +20,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
-/config/default.json
+/images/*
 
 npm-debug.log*
 yarn-debug.log*

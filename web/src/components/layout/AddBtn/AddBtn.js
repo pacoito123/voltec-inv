@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { clearCurrent } from '../../../actions/itemActions';
 
-const AddBtn = ({ isAuthenticated, user, clearCurrent }) => {
+const AddBtn = ({ user, clearCurrent }) => {
 	const clearAll = () => {
 		clearCurrent();
 	};
@@ -39,13 +39,11 @@ const AddBtn = ({ isAuthenticated, user, clearCurrent }) => {
 
 AddBtn.propTypes = {
 	clearCurrent: PropTypes.func.isRequired,
-	user: PropTypes.object,
-	isAuthenticated: PropTypes.bool
+	user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-	user: state.auth.user,
-	isAuthenticated: state.auth.isAuthenticated
+	user: state.auth.user
 });
 
 export default connect(

@@ -8,11 +8,12 @@ import Logo from '../../layout/Logo/Logo';
 
 const Login = ({ history, error, isAuthenticated, loginUser, clearErrors }) => {
 	useEffect(() => {
-		if (isAuthenticated) history.push('/');
+		if (isAuthenticated || localStorage.getItem('token')) history.push('/');
 
-		// TODO: add actual errors
 		if (error) {
-			M.toast({ html: `${error}` });
+			if (error.errors)
+				error.errors.map(err => M.toast({ html: `${err.msg}` }));
+			if (error.msg) M.toast({ html: `${error.msg}` });
 			clearErrors();
 		}
 		// eslint-disable-next-line
@@ -29,9 +30,7 @@ const Login = ({ history, error, isAuthenticated, loginUser, clearErrors }) => {
 				email: email.current.value,
 				password: password.current.value
 			});
-		} else {
-			M.toast({ html: 'Faltó por ingresar algún parámetro.' });
-		}
+		} else M.toast({ html: 'Faltó por ingresar algún parámetro.' });
 	};
 
 	return (
@@ -50,44 +49,46 @@ const Login = ({ history, error, isAuthenticated, loginUser, clearErrors }) => {
 						Iniciar sesión
 					</h4>
 				</div>
-				<div className='row'>
-					<div className='container'>
-						<div className='input-field col s12'>
-							<i className='material-icons prefix'>email</i>
-							<input
-								ref={email}
-								id='email'
-								type='email'
-								placeholder='Correo electrónico'
-								className='validate'
-							/>
+				<form>
+					<div className='row'>
+						<div className='container'>
+							<div className='input-field col s12'>
+								<i className='material-icons prefix'>email</i>
+								<input
+									ref={email}
+									id='email'
+									type='email'
+									placeholder='Correo electrónico'
+									className='validate'
+								/>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div className='row'>
-					<div className='container'>
-						<div className='input-field col s12'>
-							<i className='material-icons prefix'>vpn_key</i>
-							<input
-								ref={password}
-								id='password'
-								type='password'
-								placeholder='Contraseña'
-								className='validate'
-							/>
+					<div className='row'>
+						<div className='container'>
+							<div className='input-field col s12'>
+								<i className='material-icons prefix'>vpn_key</i>
+								<input
+									ref={password}
+									id='password'
+									type='password'
+									placeholder='Contraseña'
+									className='validate'
+								/>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div className='row center'>
-					<a
-						className='waves-effect waves-light btn cyan darken-2'
-						href='#!'
-						onClick={onSubmit}
-					>
-						Entrar
-						<i className='material-icons right'>send</i>
-					</a>
-				</div>
+					<div className='row center'>
+						<button
+							type='submit'
+							className='waves-effect waves-light btn cyan darken-2'
+							onClick={onSubmit}
+						>
+							Entrar
+							<i className='material-icons right'>send</i>
+						</button>
+					</div>
+				</form>
 				<div className='row center'>
 					<a
 						className='waves-effect waves-light btn teal darken-2'
@@ -104,7 +105,7 @@ const Login = ({ history, error, isAuthenticated, loginUser, clearErrors }) => {
 
 Login.propTypes = {
 	history: PropTypes.object.isRequired,
-	error: PropTypes.string,
+	error: PropTypes.object,
 	isAuthenticated: PropTypes.bool,
 	loginUser: PropTypes.func.isRequired,
 	clearErrors: PropTypes.func.isRequired

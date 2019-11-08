@@ -71,7 +71,11 @@ export const updateItem = (item, grab) => async dispatch => {
 	try {
 		setLoading();
 
-		const res = await Axios.put(`/api/items/${item._id}`, [item, grab], config);
+		const res = await Axios.put(
+			`/api/items/${item._id}`,
+			[item, grab],
+			config
+		);
 
 		dispatch({
 			type: UPDATE_ITEM,

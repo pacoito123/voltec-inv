@@ -8,11 +8,6 @@ import Spinner from '../../layout/Spinner/Spinner';
 import Ticker from '../../layout/Ticker/Ticker';
 import TagSelectOptions from '../../tags/TagSelectOptions/TagSelectOptions';
 
-let imgurAccessToken =
-	process.env.NODE_ENV !== 'production'
-		? process.env.REACT_APP_IMGUR_ACCESS_TOKEN
-		: process.env.IMGUR_ACCESS_TOKEN;
-
 const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 	useEffect(() => {
 		if (current !== null) setItem(current);
@@ -74,25 +69,20 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 		clearCurrent();
 	};
 
-	// TODO: Send process to back-end.
 	const uploadImage = async (img, storedInCheck) => {
-		const config = {
-			headers: {
-				Authorization: `Bearer ${imgurAccessToken}`
-			}
-		};
+		let imageFormObj = new FormData();
+
+		imageFormObj.append('imageName', 'image-' + Date.now());
+		imageFormObj.append('imageData', img);
+
 		try {
-			const res = await Axios.post(
-				'https://api.imgur.com/3/upload/',
-				img,
-				config
-			);
+			const res = await Axios.post('/api/img', imageFormObj);
 
 			if (!storedInCheck) {
-				setItem({ ...item, image: res.data.data.link });
+				setItem({ ...item, image: res.data.link });
 				setImgLoading(false);
 			} else {
-				setItem({ ...item, storedIn: res.data.data.link });
+				setItem({ ...item, storedIn: res.data.link });
 				setStoredInLoading(false);
 			}
 
@@ -124,8 +114,8 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 							<i className='material-icons prefix'>build</i>
 							<input
 								type='text'
-								id='name'
-								name='name'
+								id='itemName'
+								name='itemName'
 								value={name}
 								onChange={e =>
 									setItem({ ...item, name: e.target.value })
@@ -133,7 +123,7 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 								required
 							/>
 							{name === '' && (
-								<label htmlFor='name' className='active'>
+								<label htmlFor='itemName' className='active'>
 									Nombre
 								</label>
 							)}
@@ -187,6 +177,8 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 								</i>
 								<input
 									type='file'
+									name='imgUpload'
+									formEncType='multipart/form-data'
 									onChange={e => {
 										if (e.target.files[0] !== undefined) {
 											setImgLoading(true);
@@ -232,6 +224,8 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 								</i>
 								<input
 									type='file'
+									name='storedInUpload'
+									formEncType='multipart/form-data'
 									onChange={e => {
 										if (e.target.files[0] !== undefined) {
 											setStoredInLoading(true);

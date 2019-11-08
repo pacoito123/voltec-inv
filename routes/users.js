@@ -13,13 +13,13 @@ const User = require('../models/User');
 router.post(
 	'/',
 	[
-		check('name', 'Por favor introduzca su nombre')
+		check('name', 'Por favor introduzca su nombre.')
 			.not()
 			.isEmpty(),
 		check('email', 'Por favor introduzca un correo válido.').isEmail(),
 		check(
 			'password',
-			'Por favor introduzca una contraseña con 6 o más caracteres'
+			'Por favor introduzca una contraseña con 6 o más caracteres.'
 		).isLength({ min: 6 })
 	],
 	async (req, res) => {
@@ -33,7 +33,7 @@ router.post(
 			let user = await User.findOne({ email });
 
 			if (user)
-				return res.status(400).json({ msg: 'El usuario ya existe.' });
+				return res.status(400).json({ msg: 'Un usuario con ese correo ya existe.' });
 
 			const salt = await bcrypt.genSalt(15);
 			let saltedPassword = await bcrypt.hash(password, salt);
@@ -68,7 +68,7 @@ router.post(
 			);
 		} catch (err) {
 			console.error(err.message);
-			res.status(500).send('Server Error');
+			res.status(500).send('Error del servidor.');
 		}
 	}
 );

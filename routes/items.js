@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
 		const items = await Item.find().sort({
 			timesGrabbed: -1
 		});
+
 		res.json(items);
 	} catch (err) {
 		console.error(err.message);
@@ -92,15 +93,16 @@ router.put('/:id', auth, async (req, res) => {
 	} = req.body[0];
 
 	// Build item object
-	const itemFields = {};
-	if (name) itemFields.name = name;
-	if (amount) itemFields.amount = amount;
-	if (tags) itemFields.tags = tags;
-	if (image) itemFields.image = image;
-	if (storedIn) itemFields.storedIn = storedIn;
-	if (grabbedBy) itemFields.grabbedBy = grabbedBy;
-	if (amountGrabbed) itemFields.amountGrabbed = amountGrabbed;
-	if (timesGrabbed) itemFields.timesGrabbed = timesGrabbed;
+	const itemFields = {
+		name,
+		amount,
+		tags,
+		image,
+		storedIn,
+		grabbedBy,
+		amountGrabbed,
+		timesGrabbed
+	};
 
 	try {
 		let item = await Item.findById(req.params.id);

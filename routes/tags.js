@@ -11,7 +11,7 @@ const Tag = require('../models/Tag');
 router.get('/', async (req, res) => {
 	try {
 		const tags = await Tag.find().sort({
-			tag: -1
+			tag: 1
 		});
 		res.json(tags);
 	} catch (err) {

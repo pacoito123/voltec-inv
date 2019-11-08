@@ -9,12 +9,14 @@ connectDB();
 
 // Init Middleware
 app.use(express.json({ extended: false }));
+app.use('/images', express.static('images'));
 
 // Define Routes
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/items', require('./routes/items'));
 app.use('/api/tags', require('./routes/tags'));
+app.use('/api/img', require('./routes/img'));
 
 // Server static assets in production
 if (process.env.NODE_ENV === 'production') {

@@ -15,21 +15,20 @@ const CardTable = ({ grabbedBy }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{grabbedBy.length > 0 &&
-						grabbedBy.map(grab => (
-							<tr key={grab.date}>
-								<td>{grab.name}</td>
-								<td>{grab.amount}</td>
-								<td>
-									<Moment
-										locale='es'
-										format='DD/MM/YYYY, h:mm:ss A'
-									>
-										{grab.date}
-									</Moment>
-								</td>
-							</tr>
-						))}
+					{grabbedBy.map(grab => (
+						<tr key={grab.date}>
+							<td>{grab.name}</td>
+							<td>{grab.amount}</td>
+							<td>
+								<Moment
+									locale='es'
+									format='DD/MM/YYYY, h:mm:ss A'
+								>
+									{grab.date}
+								</Moment>
+							</td>
+						</tr>
+					))}
 				</tbody>
 			</table>
 			<hr />

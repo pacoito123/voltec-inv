@@ -4,7 +4,7 @@ const initialState = {
 	items: null,
 	current: null,
 	filtered: null,
-	loading: false,
+	loading: true,
 	error: null
 };
 

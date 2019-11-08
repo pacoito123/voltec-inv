@@ -79,6 +79,7 @@ const GrabModal = ({ current, user, updateItem }) => {
 									id='grab'
 									name='grab'
 									value={grabName}
+									placeholder={user.name}
 									onChange={e => setGrabName(e.target.value)}
 									required
 								/>
