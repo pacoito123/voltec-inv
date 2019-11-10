@@ -8,11 +8,12 @@
 
 # testing
 /coverage
+/config/default.json
 
 # production
 /build
 /web/build
-/config/default.json
+/config/production.json
 
 # misc
 .DS_Store
