@@ -49,7 +49,7 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 			...item,
 			amount:
 				amount + amountAdded >= amountGrabbed &&
-				amount + amountAdded > 0
+				amount + amountAdded >= 0
 					? amount + amountAdded
 					: amount
 		});
