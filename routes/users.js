@@ -33,7 +33,9 @@ router.post(
 			let user = await User.findOne({ email });
 
 			if (user)
-				return res.status(400).json({ msg: 'Un usuario con ese correo ya existe.' });
+				return res
+					.status(400)
+					.json({ msg: 'Un usuario con ese correo ya existe.' });
 
 			const salt = await bcrypt.genSalt(15);
 			let saltedPassword = await bcrypt.hash(password, salt);
@@ -57,7 +59,9 @@ router.post(
 
 			jwt.sign(
 				payload,
-				config.get('jwtSecret'),
+				process.env.NODE_ENV === 'production'
+					? process.env.JWT_SECRET
+					: config.get('jwtSecret'),
 				{
 					expiresIn: 36000
 				},

@@ -9,7 +9,12 @@ module.exports = function(req, res, next) {
 	if (!token) return res.status(401).json({ msg: 'No autorizado.' });
 
 	try {
-		const decoded = jwt.verify(token, config.get('jwtSecret'));
+		const decoded = jwt.verify(
+			token,
+			process.env.NODE_ENV === 'production'
+				? process.env.JWT_SECRET
+				: config.get('jwtSecret')
+		);
 
 		req.user = decoded.user;
 		next();
