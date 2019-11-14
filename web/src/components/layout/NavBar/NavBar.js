@@ -12,10 +12,17 @@ const NavBar = ({ isAuthenticated, user, logout }) => {
 						voltec-inv
 					</a>
 					<ul className='right'>
-						{isAuthenticated && user !== null ? (
+						{isAuthenticated && user !== null && (
 							<Fragment>
-								<li>
+								<li className='hide-on-small-only'>
 									<a href='/user'>{user.name}</a>
+								</li>
+								<li className='hide-on-med-and-up'>
+									<a href='/user'>
+										<i className='material-icons'>
+											account_circle
+										</i>
+									</a>
 								</li>
 								<li>
 									<a href='#!' onClick={() => logout()}>
@@ -25,14 +32,6 @@ const NavBar = ({ isAuthenticated, user, logout }) => {
 									</a>
 								</li>
 							</Fragment>
-						) : (
-							<li>
-								<a href='/user'>
-									<i className='material-icons'>
-										account_circle
-									</i>
-								</a>
-							</li>
 						)}
 					</ul>
 				</div>
