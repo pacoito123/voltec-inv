@@ -1,14 +1,18 @@
 import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { clearErrors, loginUser } from '../../../actions/authActions';
 import VoltecLogo from '../../../assets/Logo.png';
 import Logo from '../../layout/Logo/Logo';
+import Spinner from '../../layout/Spinner/Spinner';
 
 const Login = ({ history, error, isAuthenticated, loginUser, clearErrors }) => {
 	useEffect(() => {
-		if (isAuthenticated || localStorage.getItem('token')) history.push('/');
+		if (isAuthenticated || localStorage.getItem('token')) {
+			setLoading(false);
+			history.push('/');
+		}
 
 		if (error) {
 			if (error.errors)
@@ -22,6 +26,8 @@ const Login = ({ history, error, isAuthenticated, loginUser, clearErrors }) => {
 	const email = useRef('');
 	const password = useRef('');
 
+	const [loading, setLoading] = useState(false);
+
 	const onSubmit = e => {
 		e.preventDefault();
 
@@ -30,6 +36,7 @@ const Login = ({ history, error, isAuthenticated, loginUser, clearErrors }) => {
 				email: email.current.value,
 				password: password.current.value
 			});
+			setLoading(true);
 		} else M.toast({ html: 'Faltó por ingresar algún parámetro.' });
 	};
 
@@ -49,6 +56,11 @@ const Login = ({ history, error, isAuthenticated, loginUser, clearErrors }) => {
 						Iniciar sesión
 					</h4>
 				</div>
+				{loading && (
+					<div className='center'>
+						<Spinner />
+					</div>
+				)}
 				<form>
 					<div className='row'>
 						<div className='container'>
@@ -116,7 +128,4 @@ const mapStateToProps = state => ({
 	isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-	mapStateToProps,
-	{ loginUser, clearErrors }
-)(Login);
+export default connect(mapStateToProps, { loginUser, clearErrors })(Login);

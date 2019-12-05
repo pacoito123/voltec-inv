@@ -1,10 +1,11 @@
 import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { clearErrors, registerUser } from '../../../actions/authActions';
 import VoltecLogo from '../../../assets/Logo.png';
 import Logo from '../../layout/Logo/Logo';
+import Spinner from '../../layout/Spinner/Spinner';
 
 const Register = ({
 	history,
@@ -14,7 +15,10 @@ const Register = ({
 	clearErrors
 }) => {
 	useEffect(() => {
-		if (isAuthenticated || localStorage.getItem('token')) history.push('/');
+		if (isAuthenticated || localStorage.getItem('token')) {
+			setLoading(false);
+			history.push('/');
+		}
 
 		if (error) {
 			if (error.errors)
@@ -29,6 +33,8 @@ const Register = ({
 	const email = useRef('');
 	const password = useRef('');
 	const passwordVerify = useRef('');
+
+	const [loading, setLoading] = useState(false);
 
 	const onSubmit = e => {
 		e.preventDefault();
@@ -45,6 +51,7 @@ const Register = ({
 					email: email.current.value,
 					password: password.current.value
 				});
+				setLoading(true);
 			} else M.toast({ html: 'Las contraseñas no son iguales.' });
 		} else M.toast({ html: 'Por favor llene todo el formulario.' });
 	};
@@ -65,6 +72,11 @@ const Register = ({
 						Registrar una cuenta
 					</h4>
 				</div>
+				{loading && (
+					<div className='center'>
+						<Spinner />
+					</div>
+				)}
 				<form>
 					<div className='row'>
 						<div className='container'>
@@ -167,7 +179,6 @@ const mapStateToProps = state => ({
 	isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-	mapStateToProps,
-	{ registerUser, clearErrors }
-)(Register);
+export default connect(mapStateToProps, { registerUser, clearErrors })(
+	Register
+);
