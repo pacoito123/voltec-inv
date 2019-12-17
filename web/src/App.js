@@ -26,7 +26,15 @@ const App = () => {
 			<Provider store={store}>
 				<Fragment>
 					<NavBar />
-					<div className='container'>
+
+					<div
+						className=''
+						style={{
+							margin: '0 auto',
+							maxWidth: '2560px',
+							width: '75%'
+						}}
+					>
 						<Switch>
 							<PrivateRoute exact path='/' component={Home} />
 							<Route exact path='/login' component={Login} />
@@ -38,6 +46,7 @@ const App = () => {
 							<PrivateRoute exact path='/user' component={User} />
 						</Switch>
 					</div>
+
 					<AddBtn />
 					<GrabModal />
 					<ItemModal />

@@ -6,7 +6,7 @@ import GrabBtn from './GrabBtn/GrabBtn';
 
 const ItemCard = ({ item }) => {
 	return (
-		<div className='col s12 m6 l4'>
+		<div className='col s12 m6 l4 xl3'>
 			<div className='card z-depth-1 light-blue darken-3 hoverable'>
 				<div className='card-image waves-effect waves-block waves-light'>
 					<CardTop item={item} />

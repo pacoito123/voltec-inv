@@ -15,10 +15,7 @@ const Register = ({
 	clearErrors
 }) => {
 	useEffect(() => {
-		if (isAuthenticated || localStorage.getItem('token')) {
-			setLoading(false);
-			history.push('/');
-		}
+		handleRefresh();
 
 		if (error) {
 			if (error.errors)
@@ -56,12 +53,20 @@ const Register = ({
 		} else M.toast({ html: 'Por favor llene todo el formulario.' });
 	};
 
+	const handleRefresh = () => {
+		if (isAuthenticated || localStorage.getItem('token')) {
+			setLoading(false);
+			history.push('/');
+		}
+	};
+
 	return (
 		<Fragment>
 			<Logo
 				width='30%'
 				link='http://www.voltec6647.com/'
 				image={VoltecLogo}
+				refreshAction={() => handleRefresh()}
 			/>
 			<div className='container light-blue lighten-5 hoverable'>
 				<div className='row cyan darken-2'>
@@ -72,11 +77,6 @@ const Register = ({
 						Registrar una cuenta
 					</h4>
 				</div>
-				{loading && (
-					<div className='center'>
-						<Spinner />
-					</div>
-				)}
 				<form>
 					<div className='row'>
 						<div className='container'>
@@ -135,6 +135,11 @@ const Register = ({
 							</div>
 						</div>
 					</div>
+					{loading && (
+						<div className='center'>
+							<Spinner />
+						</div>
+					)}
 					<div className='row center'>
 						<button
 							type='submit'

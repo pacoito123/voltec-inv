@@ -10,9 +10,7 @@ const Tag = require('../models/Tag');
 // @access Private
 router.get('/', async (req, res) => {
 	try {
-		const tags = await Tag.find().sort({
-			tag: 1
-		});
+		const tags = await Tag.find();
 		res.json(tags);
 	} catch (err) {
 		console.error(err.message);

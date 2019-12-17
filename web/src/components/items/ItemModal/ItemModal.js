@@ -105,7 +105,7 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 				className='modal-header cyan darken-1 center'
 				style={{ padding: '20px 0px 10px 0px' }}
 			>
-				<h4>Agregar/Editar {name}</h4>
+				<h4 className='flow-text'>Agregar/Editar {name}</h4>
 			</div>
 			<div className='modal-content'>
 				<div className='container'>
@@ -169,10 +169,10 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 							</Fragment>
 						)}
 						{imgLoading && <Spinner />}
-						<div className='file-field input-field col s7 m5'>
+						<div className='file-field input-field'>
 							<div className='btn cyan darken-1'>
-								<span>Imágen</span>
-								<i className='material-icons left'>
+								Imágen
+								<i className='material-icons left hide-on-small-only'>
 									attach_file
 								</i>
 								<input
@@ -205,7 +205,7 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 							onChange={e =>
 								setItem({ ...item, image: e.target.value })
 							}
-							className='validate col s5 m7'
+							className='validate row'
 						/>
 					</div>
 					<div className='row'>
@@ -216,10 +216,10 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 							</Fragment>
 						)}
 						{storedInLoading && <Spinner />}
-						<div className='file-field input-field col s11 m7'>
+						<div className='file-field input-field'>
 							<div className='btn cyan darken-1'>
-								<span>¿Dónde se guarda?</span>
-								<i className='material-icons left'>
+								¿Dónde se guarda?
+								<i className='material-icons left hide-on-small-only'>
 									attach_file
 								</i>
 								<input
@@ -255,7 +255,7 @@ const ItemModal = ({ current, addItem, updateItem, clearCurrent }) => {
 									storedIn: e.target.value
 								})
 							}
-							className='validate col s1 m5'
+							className='validate row'
 						/>
 						<br />
 						<br />
@@ -293,7 +293,6 @@ const mapStateToProps = state => ({
 	current: state.item.current
 });
 
-export default connect(
-	mapStateToProps,
-	{ addItem, updateItem, clearCurrent }
-)(ItemModal);
+export default connect(mapStateToProps, { addItem, updateItem, clearCurrent })(
+	ItemModal
+);

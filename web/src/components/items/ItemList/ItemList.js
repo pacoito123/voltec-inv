@@ -1,3 +1,4 @@
+import FlatList from 'flatlist-react';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -11,19 +12,19 @@ const ItemList = ({ item: { items, loading }, filtered, getItems }) => {
 		//eslint-disable-next-line
 	}, []);
 
-	if (items !== null && items.length === 0 && !loading)
-		return (
-			<p className='center white-text'>No se encontraron objetos...</p>
-		);
+	const renderItem = item => <ItemCard item={item} key={item._id} />;
+	const renderEmpty = () => (
+		<p className='center white-text'>No se encontraron objetos...</p>
+	);
 
 	return (
 		<div className='row'>
 			{!loading ? (
-				filtered !== null ? (
-					filtered.map(i => <ItemCard item={i} key={i._id} />)
-				) : (
-					items.map(i => <ItemCard item={i} key={i._id} />)
-				)
+				<FlatList
+					list={filtered !== null ? filtered : items}
+					renderItem={renderItem}
+					renderWhenEmpty={renderEmpty}
+				/>
 			) : (
 				<Preloader />
 			)}
@@ -42,7 +43,4 @@ const mapStateToProps = state => ({
 	filtered: state.item.filtered
 });
 
-export default connect(
-	mapStateToProps,
-	{ getItems }
-)(ItemList);
+export default connect(mapStateToProps, { getItems })(ItemList);

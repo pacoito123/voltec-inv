@@ -10,8 +10,7 @@ import Logo from '../../layout/Logo/Logo';
 
 const User = ({ items, user, getItems, updateItem, loadUser }) => {
 	useEffect(() => {
-		loadUser();
-		getItems();
+		handleRefresh();
 		// eslint-disable-next-line
 	}, []);
 
@@ -25,12 +24,18 @@ const User = ({ items, user, getItems, updateItem, loadUser }) => {
 		updateItem(newItem, true);
 	};
 
+	const handleRefresh = () => {
+		loadUser();
+		getItems();
+	};
+
 	return (
 		<Fragment>
 			<Logo
 				width='30%'
 				link='http://www.voltec6647.com/'
 				image={VoltecLogo}
+				refreshAction={() => handleRefresh()}
 			/>
 			<table className='responsive-table centered light-blue lighten-4 highlight '>
 				<thead>
@@ -99,7 +104,6 @@ const mapStateToProps = state => ({
 	user: state.auth.user
 });
 
-export default connect(
-	mapStateToProps,
-	{ getItems, updateItem, loadUser }
-)(User);
+export default connect(mapStateToProps, { getItems, updateItem, loadUser })(
+	User
+);

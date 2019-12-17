@@ -10,9 +10,7 @@ const Item = require('../models/Item');
 // @access Public
 router.get('/', async (req, res) => {
 	try {
-		const items = await Item.find().sort({
-			timesGrabbed: -1
-		});
+		const items = await Item.find();
 
 		res.json(items);
 	} catch (err) {
